@@ -1,6 +1,6 @@
 # Introduction
 
-The topic that we are working on is New York City Payroll Data Analysis. Payroll data provides insights into workforce dynamics, and demographic patterns of residents of New York City. We aim to identify trends and patterns in the payroll of New York residents for last 10 years (2014 - 2023). There are few topics that we think are important to study in order to understand the trends. 
+The topic that we are working on is New York City Payroll Data Analysis. Payroll data provides insights into workforce dynamics, and demographic patterns of municipal employees of New York City. We aim to identify trends and patterns in the payroll of New York municipal employees for last 10 years (2014 - 2023). There are few topics that we think are important to study in order to understand the trends. 
 
 **Geographic Influence on Base Salaries:**
 
