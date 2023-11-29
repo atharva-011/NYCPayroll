@@ -1,6 +1,6 @@
 # Introduction
 
-The topic that we are working on is New York City Payroll Data analysis. Payroll data provides insights into workforce dynamics, and demographic patterns of residents of NYC. We aim to identify trends and patterns in the payroll of New York residents for last 10 years (2014 - 2023). There are few topics that we think are important to study in order to understand the trends. 
+The topic that we are working on is New York City Payroll Data Analysis. Payroll data provides insights into workforce dynamics, and demographic patterns of residents of NYC. We aim to identify trends and patterns in the payroll of New York residents for last 10 years (2014 - 2023). There are few topics that we think are important to study in order to understand the trends. 
 
 **Geographic Influence on Base Salaries:**
 
@@ -26,5 +26,5 @@ Examining the leave status of employees.
 
 Examining the impact of job profiles on payroll and identifying any borough-specific jobs will offer a deeper understanding of the payroll dynamics. Furthermore, the analysis into the relationship between overtime work and payroll aims to uncover insights into work culture and potential areas for improvement in work-life balance and the payroll itself(underpaid / overpaid).
 
-By addressing above mentioned questions, through exploratory data analysis and visualisation  we can gain insights to form more inclusive and fair policies aimed  at bridging income gaps, a better and inclusive job market, and guiding initiatives related to education, upskilling, and training to even out the disparity. 
+By addressing above mentioned questions, through exploratory data analysis and visualisation we can gain insights to form more inclusive and fair policies aimed  at bridging income gaps, a better and inclusive job market, and guiding initiatives related to education, upskilling, and training to even out the disparity. 
 
