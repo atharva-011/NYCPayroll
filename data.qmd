@@ -3,10 +3,12 @@
 ## Technical Description
 2.1 Technical description
 The data that we plan on using for Payroll Analysis is from NYC Open Data website and is titled as  **Citywide Payroll Data (Fiscal Year) **. The data set was created back in 2015 and has been constantly been updated on a annual basis (last update was on November 28,2023). It tells us about the amount of money spent on salary and overtime pay for all municipal employees based in New York City. The data is provided by **Office of Payroll Administration (OPA)**. 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(httr)
 library(jsonlite)
 library(knitr)
+library(redav)
+library(mi)
 ```
 
 
@@ -19,10 +21,10 @@ Here are the columns of the dataset:
 data_url <- "https://data.cityofnewyork.us/resource/k397-673e.json"
 
 response <- httr::GET(url = data_url)
-data <- jsonlite::fromJSON(content(response, "text", encoding = "UTF-8"))
+nyc_payroll_data <- jsonlite::fromJSON(content(response, "text", encoding = "UTF-8"))
 
 # Display columns of the dataset
-kable(data.frame(Column_Names = names(data)), "markdown")
+kable(data.frame(Column_Names = names(nyc_payroll_data)), "markdown")
 
 ```
 
@@ -43,12 +45,13 @@ Describe any patterns you discover in missing values. If no values are missing, 
 (suggested: 2 graphs plus commentary)
 
 ```{r}
-missing_val <- colSums(is.na(data))
-barplot(missing_val, main = "Missing Values by Variable", 
-        col = ifelse(missing_val > 0, "red", "green"), 
-        names.arg = names(missing_val), cex.names = 0.7)
-
+colSums(is.na(nyc_payroll_data)) |> sort(decreasing = TRUE)
 ```
 
+```{r, fig.height=18, fig.width=30}
+plot_missing(nyc_payroll_data, percent = FALSE)
+```
 
-
+```{r, fig.height=11}
+missing_data.frame(nyc_payroll_data) |> image()
+```
