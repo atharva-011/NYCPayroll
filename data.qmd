@@ -43,6 +43,7 @@ Explain in detail how your data will enable you to answer your research question
 Describe any patterns you discover in missing values. If no values are missing, graphs should still be included showing that.
 
 (suggested: 2 graphs plus commentary)
+Showing count of NAN values per column
 
 ```{r}
 colSums(is.na(nyc_payroll_data)) |> sort(decreasing = TRUE)
