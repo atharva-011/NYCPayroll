@@ -3,15 +3,26 @@
 ## Technical Description
 2.1 Technical description
 The data that we plan on using for Payroll Analysis is from NYC Open Data website and is titled as  **Citywide Payroll Data (Fiscal Year) **. The data set was created back in 2015 and has been constantly been updated on a annual basis (last update was on November 28,2023). It tells us about the amount of money spent on salary and overtime pay for all municipal employees based in New York City. The data is provided by **Office of Payroll Administration (OPA)**. 
-Here is the link to dataset: https://data.cityofnewyork.us/City-Government/Citywide-Payroll-Data-Fiscal-Year-/k397-673e
+```{r}
+library(httr)
+library(jsonlite)
+library(knitr)
+```
+
+```{r}
+url <- "https://data.cityofnewyork.us/City-Government/Citywide-Payroll-Data-Fiscal-Year-/k397-673e"
+
+sentence <- paste("Click [here](", url, ") to visit the website.")
+
+# Print the sentence
+cat(sentence, "\n")
+```
 
 The data consists of 5.66 million rows (essentially 5.66 million municipal employees) and 17 columns. Every row basically tells us about the employee salary, their work location, agency, base pay, overtime (if any), etc. 
 
 Here are the columns of the dataset:
 
 ```{r}
-library(httr)
-library(jsonlite)
 
 data_url <- "https://data.cityofnewyork.us/resource/k397-673e.json"
 
@@ -19,7 +30,9 @@ response <- httr::GET(url = data_url)
 data <- jsonlite::fromJSON(content(response, "text", encoding = "UTF-8"))
 
 # Display columns of the dataset
-print(names(data))
+
+cat("Columns of the dataset:\n")
+kable(data.frame(Column_Names = names(data)), "markdown")
 
 #Head(10 values)
 print(head(data, 10))
@@ -28,16 +41,14 @@ print(head(data, 10))
 On further studying the data thoroughly, we find that there are few inconsistencies in the data such that for few employees the salaries are not per annum but are per day/hour so we need to perform certain operation to ensure that all salaries are per annum.
 
 ## Research plan
-
-
-  2.2 Research plan
+2.2 Research plan
 
 Explain in detail how your data will enable you to answer your research questions from the introduction. 
 
 (suggested: 1 page)
 
 ## Missing Value Analysis
- 2.3 Missing value analysis
+2.3 Missing value analysis
 
 Describe any patterns you discover in missing values. If no values are missing, graphs should still be included showing that.
 
