@@ -213,40 +213,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://data.cityofnewyork.us/City-Government/Citywide-Payroll-Data-Fiscal-Year-/k397-673e"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sentence <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Click [here]("</span>, url, <span class="st">") to visit the website."</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the sentence</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(sentence, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Click [here]( https://data.cityofnewyork.us/City-Government/Citywide-Payroll-Data-Fiscal-Year-/k397-673e ) to visit the website. </code></pre>
-</div>
-</div>
+<p>Here is the link to the dataset: “https://data.cityofnewyork.us/City-Government/Citywide-Payroll-Data-Fiscal-Year-/k397-673e”</p>
 <p>The data consists of 5.66 million rows (essentially 5.66 million municipal employees) and 17 columns. Every row basically tells us about the employee salary, their work location, agency, base pay, overtime (if any), etc.</p>
 <p>Here are the columns of the dataset:</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data_url <span class="ot">&lt;-</span> <span class="st">"https://data.cityofnewyork.us/resource/k397-673e.json"</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> httr<span class="sc">::</span><span class="fu">GET</span>(<span class="at">url =</span> data_url)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> jsonlite<span class="sc">::</span><span class="fu">fromJSON</span>(<span class="fu">content</span>(response, <span class="st">"text"</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>))</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Display columns of the dataset</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Columns of the dataset:</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data_url <span class="ot">&lt;-</span> <span class="st">"https://data.cityofnewyork.us/resource/k397-673e.json"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> httr<span class="sc">::</span><span class="fu">GET</span>(<span class="at">url =</span> data_url)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> jsonlite<span class="sc">::</span><span class="fu">fromJSON</span>(<span class="fu">content</span>(response, <span class="st">"text"</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Display columns of the dataset</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Columns of the dataset:</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Columns of the dataset:</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">data.frame</span>(<span class="at">Column_Names =</span> <span class="fu">names</span>(data)), <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">data.frame</span>(<span class="at">Column_Names =</span> <span class="fu">names</span>(data)), <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -272,105 +259,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">first_name</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">mid_init</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">agency_start_date</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">work_location_borough</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">title_description</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">leave_status_as_of_june_30</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">base_salary</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">pay_basis</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">regular_hours</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">regular_gross_paid</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">ot_hours</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">total_ot_paid</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">total_other_pay</td>
-</tr>
 <tr class="odd">
-<td style="text-align: left;">mid_init</td>
+<td style="text-align: left;">total_other_pay</td>
 </tr>
 </tbody>
 </table>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Head(10 values)</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(data, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>   fiscal_year payroll_number               agency_name     last_name
-1         2023             67 ADMIN FOR CHILDREN'S SVCS       AWOTOYE
-2         2023             67 ADMIN FOR CHILDREN'S SVCS         BRAND
-3         2023             67 ADMIN FOR CHILDREN'S SVCS         ALLEN
-4         2023             67 ADMIN FOR CHILDREN'S SVCS       AWOLOWO
-5         2023             67 ADMIN FOR CHILDREN'S SVCS BENNETT-SIMON
-6         2023             67 ADMIN FOR CHILDREN'S SVCS        BRANCO
-7         2023             67 ADMIN FOR CHILDREN'S SVCS         AGATE
-8         2023             67 ADMIN FOR CHILDREN'S SVCS         ALLEN
-9         2023             67 ADMIN FOR CHILDREN'S SVCS    ANTONSANTI
-10        2023             67 ADMIN FOR CHILDREN'S SVCS          AWER
-   first_name       agency_start_date work_location_borough
-1    FLORENCE 1996-06-23T00:00:00.000             MANHATTAN
-2     MIKHAIL 1997-02-03T00:00:00.000             MANHATTAN
-3     CRYSTAL 1999-09-13T00:00:00.000              BROOKLYN
-4     STOYANN 2023-02-27T00:00:00.000              BROOKLYN
-5      HALLIE 2021-09-13T00:00:00.000             MANHATTAN
-6     AKINOLA 1996-06-23T00:00:00.000             MANHATTAN
-7     SHANNON 2019-12-09T00:00:00.000                 BRONX
-8      MEDORA 1996-06-23T00:00:00.000             MANHATTAN
-9      GLORIA 1996-06-23T00:00:00.000             MANHATTAN
-10    HEATHER 1996-06-23T00:00:00.000             MANHATTAN
-                                 title_description leave_status_as_of_june_30
-1           CHILD PROTECTIVE SPECIALIST SUPERVISOR                     ACTIVE
-2                              COMPUTER SPECIALIST                     CEASED
-3                      CHILD PROTECTIVE SPECIALIST                     ACTIVE
-4                      CHILD PROTECTIVE SPECIALIST                     ACTIVE
-5  PRINCIPAL ADMINISTRATIVE ASSOCIATE -  NON SUPVR                     ACTIVE
-6                         CHILD WELFARE SPECIALIST                     CEASED
-7                                  SPECIAL OFFICER                     ACTIVE
-8                          CONGREG CARE SPEC - ACS                     ACTIVE
-9                         CHILD WELFARE SPECIALIST                     ACTIVE
-10          CHILD PROTECTIVE SPECIALIST SUPERVISOR                     CEASED
-   base_salary pay_basis regular_hours regular_gross_paid ot_hours
-1     94469.00 per Annum       1820.00           94582.80   460.50
-2     91603.00 per Annum          0.00               0.00     0.00
-3     66022.00 per Annum       1820.00           66103.17    67.00
-4     55463.00 per Annum        560.00           15697.02    41.75
-5     61105.00 per Annum       1820.00           60937.50     0.00
-6     60982.00 per Annum       1732.03           58113.97     0.00
-7     38287.00 per Annum       2080.00           37421.50    91.00
-8     63483.00 per Annum       1820.00           63550.60   723.62
-9     66342.00 per Annum       1820.00           66421.89    18.50
-10    89106.00 per Annum          0.00             480.74     0.00
-   total_ot_paid total_other_pay mid_init
-1       31912.10        25792.84     &lt;NA&gt;
-2           0.00            3.04     &lt;NA&gt;
-3        2658.28        15366.57     &lt;NA&gt;
-4        1465.28         3008.25        E
-5           0.00         1764.34        N
-6           0.00         7786.14        J
-7        2567.17         8243.54     &lt;NA&gt;
-8       35269.25         5859.00     &lt;NA&gt;
-9         816.77         8029.08        M
-10          0.00        13059.56     &lt;NA&gt;</code></pre>
 </div>
 </div>
 <p>On further studying the data thoroughly, we find that there are few inconsistencies in the data such that for few employees the salaries are not per annum but are per day/hour so we need to perform certain operation to ensure that all salaries are per annum.</p>
