@@ -9,27 +9,24 @@ library(jsonlite)
 library(knitr)
 ```
 
-Here is the link to the dataset: "https://data.cityofnewyork.us/City-Government/Citywide-Payroll-Data-Fiscal-Year-/k397-673e"
 
 The data consists of 5.66 million rows (essentially 5.66 million municipal employees) and 17 columns. Every row basically tells us about the employee salary, their work location, agency, base pay, overtime (if any), etc. 
 
 Here are the columns of the dataset:
 
 ```{r}
-
+#importing the dataset
 data_url <- "https://data.cityofnewyork.us/resource/k397-673e.json"
 
 response <- httr::GET(url = data_url)
 data <- jsonlite::fromJSON(content(response, "text", encoding = "UTF-8"))
 
 # Display columns of the dataset
-
-cat("Columns of the dataset:\n")
 kable(data.frame(Column_Names = names(data)), "markdown")
 
 ```
 
-On further studying the data thoroughly, we find that there are few inconsistencies in the data such that for few employees the salaries are not per annum but are per day/hour so we need to perform certain operation to ensure that all salaries are per annum.
+On further studying the data manually, we find that there are few inconsistencies in the data such that for few employees the salaries are not per annum but are per day/hour so we need to perform certain operation to ensure that all salaries are per annum.
 
 ## Research plan
 2.2 Research plan
