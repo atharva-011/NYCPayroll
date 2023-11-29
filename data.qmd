@@ -42,4 +42,13 @@ Describe any patterns you discover in missing values. If no values are missing, 
 
 (suggested: 2 graphs plus commentary)
 
-few salaries are not per annum (per day/hour)
+```{r}
+missing_val <- colSums(is.na(data))
+barplot(missing_val, main = "Missing Values by Variable", 
+        col = ifelse(missing_val > 0, "red", "green"), 
+        names.arg = names(missing_val), cex.names = 0.7)
+
+```
+
+
+

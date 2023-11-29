@@ -251,40 +251,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">first_name</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">mid_init</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">agency_start_date</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">work_location_borough</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">title_description</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">leave_status_as_of_june_30</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">base_salary</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">pay_basis</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">regular_hours</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">regular_gross_paid</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">ot_hours</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">total_ot_paid</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">total_other_pay</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mid_init</td>
 </tr>
 </tbody>
 </table>
@@ -303,7 +303,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>2.3 Missing value analysis</p>
 <p>Describe any patterns you discover in missing values. If no values are missing, graphs should still be included showing that.</p>
 <p>(suggested: 2 graphs plus commentary)</p>
-<p>few salaries are not per annum (per day/hour)</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>missing_val <span class="ot">&lt;-</span> <span class="fu">colSums</span>(<span class="fu">is.na</span>(data))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(missing_val, <span class="at">main =</span> <span class="st">"Missing Values by Variable"</span>, </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">ifelse</span>(missing_val <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">"red"</span>, <span class="st">"green"</span>), </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">names.arg =</span> <span class="fu">names</span>(missing_val), <span class="at">cex.names =</span> <span class="fl">0.7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="data_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
 </section>
