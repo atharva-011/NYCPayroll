@@ -3,3 +3,48 @@
 ## Description
 
 ## Missing value analysis
+2.1 Technical description
+
+Identify one or more data sources (see II. D. above) that you propose to draw on for the project. For each, describe how the data are collected and by whom. Describe the format of the data, the frequency of updates, dimensions, and any other relevant information. Note any issues / problems with the data, either known or that you discover. Explain how you plan to import the data. Carefully document your sources with links to the precise data sources that you used. If that is not possible (for example if your data is not available online, then explain that clearly.)
+(suggested: 1 page)
+
+The data that we plan on using for Payroll Analysis is from NYC Open Data website and is titled as  **Citywide Payroll Data (Fiscal Year) **. The data set was created back in 2015 and has been constantly been updated on a annual basis (last update was on November 28,2023). It tells us about the amount of money spent on salary and overtime pay for all municipal employees based in New York City. The data is provided by **Office of Payroll Administration (OPA)**. 
+Here is the link to dataset: https://data.cityofnewyork.us/City-Government/Citywide-Payroll-Data-Fiscal-Year-/k397-673e
+
+The data consists of 5.66 million rows (essentially 5.66 million municipal employees) and 17 columns. Every row basically tells us about the employee salary, their work location, agency, base pay, overtime (if any), etc. 
+
+Here are the columns of the dataset:
+```{r}
+# Install and load necessary packages (if not already installed)
+# install.packages("httr")
+# install.packages("jsonlite")
+library(httr)
+library(jsonlite)
+
+# URL of the dataset
+data_url <- "https://data.cityofnewyork.us/resource/k397-673e.json"
+
+# Make a GET request to the API endpoint and parse the JSON response
+response <- httr::GET(url = data_url)
+data <- jsonlite::fromJSON(content(response, "text", encoding = "UTF-8"))
+
+# Display columns of the dataset
+cat("Columns of the dataset:\n")
+print(names(data))
+
+```
+
+
+  2.2 Research plan
+
+Explain in detail how your data will enable you to answer your research questions from the introduction. 
+
+(suggested: 1 page)
+
+ 2.3 Missing value analysis
+
+Describe any patterns you discover in missing values. If no values are missing, graphs should still be included showing that.
+
+(suggested: 2 graphs plus commentary)
+
+few salaries are not per annum (per day/hour)
