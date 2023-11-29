@@ -24,7 +24,7 @@ What is the relationship between overtime work and the payroll?
 Examining the leave status of employees.
 
 
-Examining the impact of job profiles on payroll and identifying any borough-specific jobs will offer a deeper understanding of the payroll dynamics. Furthermore, the analysis into the relationship between overtime work and payroll aims to uncover insights into work culture and potential areas for improvement in work-life balance and the payroll itself(underpaid / overpaid).
+Additionally, we can study financial resources allocation and how much resources are devoted to overtime. Examining the impact of job profiles on payroll and identifying any borough-specific jobs will offer a deeper understanding of the payroll dynamics. Furthermore, the analysis into the relationship between overtime work and payroll aims to uncover insights into work culture and potential areas for improvement in work-life balance and the payroll itself(underpaid / overpaid).
 
 By addressing above mentioned questions, through exploratory data analysis and visualisation we can gain insights to form more inclusive and fair policies aimed  at bridging income gaps, a better and inclusive job market, and guiding initiatives related to education, upskilling, and training to even out the disparity. 
 
