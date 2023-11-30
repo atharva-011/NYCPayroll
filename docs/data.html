@@ -224,42 +224,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>nyc_payroll_data <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"C:/Users/athar/Desktop/Columbia Sem1/edav/nyc_payroll_data.csv"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Random sample of 10000 rows</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>randomized_data <span class="ot">&lt;-</span> nyc_payroll_data[<span class="fu">sample</span>(<span class="fu">nrow</span>(nyc_payroll_data)), ]</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>nyc_payroll_data <span class="ot">&lt;-</span> randomized_data[<span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>, ]</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the first few rows of the random downsized data</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(nyc_payroll_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(nyc_payroll_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>   Fiscal Year Payroll Number                    Agency Name Last Name
-1:        2021            742         DEPT OF ED PEDAGOGICAL     MOREL
-2:        2014            742         DEPT OF ED PEDAGOGICAL     ARATO
-3:        2018            747 DEPT OF ED PER SESSION TEACHER      SHEA
-4:        2016             NA BOARD OF ELECTION POLL WORKERS      BUIE
-5:        2018            742         DEPT OF ED PEDAGOGICAL     MCCOY
-6:        2017             NA DEPT OF ED PER SESSION TEACHER    MATHEW
+<pre><code>   Fiscal Year Payroll Number                   Agency Name   Last Name
+1:        2017             NA COMMUNITY COLLEGE (KINGSBORO)     DURRANT
+2:        2018            742        DEPT OF ED PEDAGOGICAL   FORSCHEIN
+3:        2015             NA        DEPT OF ED PEDAGOGICAL SITTENREICH
+4:        2019            744 DEPT OF ED PARA PROFESSIONALS      VARGAS
+5:        2017             NA     ADMIN FOR CHILDREN'S SVCS      GARNER
+6:        2021            742        DEPT OF ED PEDAGOGICAL      CARPIO
    First Name Mid Init Agency Start Date Work Location Borough
-1:      RAMON        O        11/03/2000             MANHATTAN
-2:  CHRISTINE                 12/31/1999                      
-3:     JACLYN        M        09/03/2013             MANHATTAN
-4:      LARRY        J        01/01/2010             MANHATTAN
-5:    SHELLEY                 09/02/2014             MANHATTAN
-6:     SHEENA                 09/08/2009             MANHATTAN
-           Title Description Leave Status as of June 30 Base Salary Pay Basis
-1: TEACHER SPECIAL EDUCATION                     ACTIVE   111350.00 per Annum
-2:          SCHOOL SECRETARY                     ACTIVE    49211.00 per Annum
-3:      TEACHER- PER SESSION                     ACTIVE       33.18   per Day
-4:           ELECTION WORKER                     ACTIVE        1.00  per Hour
-5: TEACHER SPECIAL EDUCATION                     ACTIVE    75868.00 per Annum
-6:      TEACHER- PER SESSION                     ACTIVE       33.18   per Day
-   Regular Hours Regular Gross Paid OT Hours Total OT Paid Total Other Pay
-1:             0          108511.56        0             0         5821.24
-2:             0           49211.04        0             0         1000.00
-3:             0            1181.32        0             0            3.42
-4:             0             300.00        0             0            0.00
-5:             0           71653.99        0             0            0.00
-6:             0            2125.57        0             0            0.12</code></pre>
+1:    SHERYLL        A        06/18/2015              BROOKLYN
+2:    DEBORAH                 09/08/1998             MANHATTAN
+3:      ROBIN        A        09/04/1974                 OTHER
+4:    ROSANNA                 09/16/2014             MANHATTAN
+5:    LASHAWN        M        09/25/2001             MANHATTAN
+6:    GERARDO        L        09/19/2005             MANHATTAN
+              Title Description Leave Status as of June 30 Base Salary
+1: CONTINUING EDUCATION TEACHER                     ACTIVE       36.64
+2:                      TEACHER                     ACTIVE   113685.00
+3:    TEACHER SPECIAL EDUCATION                     CEASED   100049.00
+4:               ANNUAL ED PARA                     CEASED    37055.00
+5:  CHILD PROTECTIVE SPECIALIST                   ON LEAVE    54720.00
+6:                      TEACHER                     ACTIVE   109852.00
+   Pay Basis Regular Hours Regular Gross Paid OT Hours Total OT Paid
+1:  per Hour          0.00              39.78     0.00          0.00
+2: per Annum          0.00          103130.28     0.00          0.00
+3: per Annum          0.00           55669.50     0.00          0.00
+4: per Annum          0.00            4479.66     0.00          0.00
+5: per Annum        979.25           31839.91   112.75       4597.92
+6: per Annum          0.00          105666.72     0.00          0.00
+   Total Other Pay
+1:            0.00
+2:            0.00
+3:            0.00
+4:            7.96
+5:         2482.28
+6:         4425.57</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -363,7 +365,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Payroll Number                Fiscal Year 
-                      3055                          0 
+                      3047                          0 
                Agency Name                  Last Name 
                          0                          0 
                 First Name                   Mid Init 
@@ -417,12 +419,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 changing to NA</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>NOTE: In the following pairs of variables, the missingness pattern of the first is a subset of the second.
+<pre><code>NOTE: The following pairs of variables appear to have the same missingness pattern.
  Please verify whether they are in fact logically distinct variables.
-     [,1]         [,2]        
-[1,] "Last Name"  "First Name"
-[2,] "Last Name"  "Mid Init"  
-[3,] "First Name" "Mid Init"  </code></pre>
+     [,1]        [,2]        
+[1,] "Last Name" "First Name"</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="data_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
