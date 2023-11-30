@@ -37,7 +37,7 @@ print(dim(nyc_payroll_data))
 ```
 
 
-The data consists of 5.66 million rows (essentially 5.66 million municipal employees) and 17 columns. Every row basically tells us about the employee salary, their work location, agency, base pay, overtime (if any), etc. However, the data size is too large for us to handle hence we random sample our data to the size of 10000 samples. 
+The data consists of 5.66 million rows (essentially 5.66 million municipal employees) and 17 columns. Every row basically tells us about the employee salary, their work location, agency, base pay, overtime (if any), etc. However, the data size is too large for efficient processing hence we random sample our data to the size of 10000 samples for our study.
 
 ```{r}
 # Display columns of the dataset

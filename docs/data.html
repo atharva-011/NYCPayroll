@@ -232,34 +232,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(nyc_payroll_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>   Fiscal Year Payroll Number                   Agency Name Last Name
-1:        2018            744 DEPT OF ED PARA PROFESSIONALS HERNANDEZ
-2:        2018            463     COMMUNITY COLLEGE (BRONX)  NICHOLAS
-3:        2018            744 DEPT OF ED PARA PROFESSIONALS SCHILLING
-4:        2015             NA      DEPARTMENT OF SANITATION   HANCOCK
-5:        2015             NA        DEPT OF ED PEDAGOGICAL    GOLDEN
-6:        2018            742        DEPT OF ED PEDAGOGICAL     CUFFY
-    First Name Mid Init Agency Start Date Work Location Borough
-1:    PATRICIA        A        05/03/2013             MANHATTAN
-2:      JAMILA                 06/01/2017                 BRONX
-3:       KAREN        A        10/06/2004             MANHATTAN
-4: CHRISTOPHER        M        04/03/2000             MANHATTAN
-5:     SUZANNE        D        10/06/1986                 OTHER
-6:    LAURELLE        V        09/02/1997             MANHATTAN
+<pre><code>   Fiscal Year Payroll Number                    Agency Name Last Name
+1:        2021            742         DEPT OF ED PEDAGOGICAL     MOREL
+2:        2014            742         DEPT OF ED PEDAGOGICAL     ARATO
+3:        2018            747 DEPT OF ED PER SESSION TEACHER      SHEA
+4:        2016             NA BOARD OF ELECTION POLL WORKERS      BUIE
+5:        2018            742         DEPT OF ED PEDAGOGICAL     MCCOY
+6:        2017             NA DEPT OF ED PER SESSION TEACHER    MATHEW
+   First Name Mid Init Agency Start Date Work Location Borough
+1:      RAMON        O        11/03/2000             MANHATTAN
+2:  CHRISTINE                 12/31/1999                      
+3:     JACLYN        M        09/03/2013             MANHATTAN
+4:      LARRY        J        01/01/2010             MANHATTAN
+5:    SHELLEY                 09/02/2014             MANHATTAN
+6:     SHEENA                 09/08/2009             MANHATTAN
            Title Description Leave Status as of June 30 Base Salary Pay Basis
-1:            ANNUAL ED PARA                     ACTIVE     38914.0 per Annum
-2:         COLLEGE ASSISTANT                     ACTIVE        14.6  per Hour
-3:            ANNUAL ED PARA                     ACTIVE     35977.0 per Annum
-4:    GENERAL SUPERINTENDENT                     ACTIVE    135177.0 per Annum
-5:                   TEACHER                     ACTIVE    102043.0 per Annum
-6: TEACHER SPECIAL EDUCATION                     ACTIVE    110163.0 per Annum
+1: TEACHER SPECIAL EDUCATION                     ACTIVE   111350.00 per Annum
+2:          SCHOOL SECRETARY                     ACTIVE    49211.00 per Annum
+3:      TEACHER- PER SESSION                     ACTIVE       33.18   per Day
+4:           ELECTION WORKER                     ACTIVE        1.00  per Hour
+5: TEACHER SPECIAL EDUCATION                     ACTIVE    75868.00 per Annum
+6:      TEACHER- PER SESSION                     ACTIVE       33.18   per Day
    Regular Hours Regular Gross Paid OT Hours Total OT Paid Total Other Pay
-1:          0.00           43818.34        0          0.00            0.00
-2:        253.00            4307.00        0          0.00            0.00
-3:          0.00           39138.10        0        199.29            0.00
-4:       2085.72          136789.56        0          0.00         5978.28
-5:          0.00          100883.92        0          0.00            0.00
-6:          0.00          105024.56        0          0.00            0.00</code></pre>
+1:             0          108511.56        0             0         5821.24
+2:             0           49211.04        0             0         1000.00
+3:             0            1181.32        0             0            3.42
+4:             0             300.00        0             0            0.00
+5:             0           71653.99        0             0            0.00
+6:             0            2125.57        0             0            0.12</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -271,7 +271,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 10000    17</code></pre>
 </div>
 </div>
-<p>The data consists of 5.66 million rows (essentially 5.66 million municipal employees) and 17 columns. Every row basically tells us about the employee salary, their work location, agency, base pay, overtime (if any), etc. However, the data size is too large for us to handle hence we random sample our data to the size of 10000 samples.</p>
+<p>The data consists of 5.66 million rows (essentially 5.66 million municipal employees) and 17 columns. Every row basically tells us about the employee salary, their work location, agency, base pay, overtime (if any), etc. However, the data size is too large for efficient processing hence we random sample our data to the size of 10000 samples for our study.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -363,7 +363,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Payroll Number                Fiscal Year 
-                      3067                          0 
+                      3055                          0 
                Agency Name                  Last Name 
                          0                          0 
                 First Name                   Mid Init 
@@ -417,10 +417,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 changing to NA</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>NOTE: The following pairs of variables appear to have the same missingness pattern.
+<pre><code>NOTE: In the following pairs of variables, the missingness pattern of the first is a subset of the second.
  Please verify whether they are in fact logically distinct variables.
-     [,1]        [,2]        
-[1,] "Last Name" "First Name"</code></pre>
+     [,1]         [,2]        
+[1,] "Last Name"  "First Name"
+[2,] "Last Name"  "Mid Init"  
+[3,] "First Name" "Mid Init"  </code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="data_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
