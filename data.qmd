@@ -22,7 +22,7 @@ The data can be downloaded as a [JSON file](https://data.cityofnewyork.us/resour
 ```{r}
 nyc_payroll_data <- fread("C:/Users/athar/Desktop/Columbia Sem1/edav/nyc_payroll_data.csv")
 
-# Random sample of 4000 rows
+# Random sample of 10000 rows
 randomized_data <- nyc_payroll_data[sample(nrow(nyc_payroll_data)), ]
 nyc_payroll_data <- randomized_data[1:10000, ]
 
@@ -37,7 +37,7 @@ print(dim(nyc_payroll_data))
 ```
 
 
-The data consists of 5.66 million rows (essentially 5.66 million municipal employees) and 17 columns. Every row basically tells us about the employee salary, their work location, agency, base pay, overtime (if any), etc. 
+The data consists of 5.66 million rows (essentially 5.66 million municipal employees) and 17 columns. Every row basically tells us about the employee salary, their work location, agency, base pay, overtime (if any), etc. However, the data size is too large for us to handle hence we random sample our data to the size of 10000 samples. 
 
 ```{r}
 # Display columns of the dataset

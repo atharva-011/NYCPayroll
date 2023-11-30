@@ -224,7 +224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>nyc_payroll_data <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"C:/Users/athar/Desktop/Columbia Sem1/edav/nyc_payroll_data.csv"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Random sample of 4000 rows</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Random sample of 10000 rows</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>randomized_data <span class="ot">&lt;-</span> nyc_payroll_data[<span class="fu">sample</span>(<span class="fu">nrow</span>(nyc_payroll_data)), ]</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>nyc_payroll_data <span class="ot">&lt;-</span> randomized_data[<span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>, ]</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -232,41 +232,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(nyc_payroll_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>   Fiscal Year Payroll Number                    Agency Name    Last Name
-1:        2023            747 DEPT OF ED PER SESSION TEACHER         PENA
-2:        2023             69    HRA/DEPT OF SOCIAL SERVICES        EVANS
-3:        2016             NA COMMUNITY COLLEGE (QUEENSBORO)        DAVIS
-4:        2015             NA BOARD OF ELECTION POLL WORKERS DARMSTAETTER
-5:        2016             NA  COMMUNITY COLLEGE (MANHATTAN)    COLQUHOUN
-6:        2020             56              POLICE DEPARTMENT       FERREE
-   First Name Mid Init Agency Start Date Work Location Borough
-1:      DIANE                 09/05/2000             MANHATTAN
-2:      KIMON                 09/05/2017                QUEENS
-3:     EDWARD        T        08/30/1998                QUEENS
-4:        ANN        M        01/01/2010             MANHATTAN
-5:    SHALTON                 10/02/2004             MANHATTAN
-6:     REGINA        P        07/18/2005                QUEENS
-                                 Title Description Leave Status as of June 30
-1:                            TEACHER- PER SESSION                     ACTIVE
-2: PRINCIPAL ADMINISTRATIVE ASSOCIATE -  NON SUPVR                     ACTIVE
-3:                             ASSISTANT PROFESSOR                     ACTIVE
-4:                                 ELECTION WORKER                     ACTIVE
-5:                                ADJUNCT LECTURER                   SEASONAL
-6:                             SCHOOL SAFETY AGENT                     ACTIVE
-   Base Salary Pay Basis Regular Hours Regular Gross Paid OT Hours
-1:       33.18   per Day          0.00             377.86     0.00
-2:    54531.00 per Annum       1820.00           52280.42   563.75
-3:      172.08   per Day         71.42            8145.12     0.00
-4:        1.00  per Hour          0.00             578.00     0.00
-5:       96.18   per Day        160.00           18906.24     0.00
-6:    50207.00 per Annum       2080.00           49635.86   132.00
-   Total OT Paid Total Other Pay
-1:          0.00            0.00
-2:      20969.79         2690.39
-3:          0.00            0.00
-4:          0.00            0.00
-5:          0.00            0.00
-6:       4703.12         1397.18</code></pre>
+<pre><code>   Fiscal Year Payroll Number                   Agency Name Last Name
+1:        2018            744 DEPT OF ED PARA PROFESSIONALS HERNANDEZ
+2:        2018            463     COMMUNITY COLLEGE (BRONX)  NICHOLAS
+3:        2018            744 DEPT OF ED PARA PROFESSIONALS SCHILLING
+4:        2015             NA      DEPARTMENT OF SANITATION   HANCOCK
+5:        2015             NA        DEPT OF ED PEDAGOGICAL    GOLDEN
+6:        2018            742        DEPT OF ED PEDAGOGICAL     CUFFY
+    First Name Mid Init Agency Start Date Work Location Borough
+1:    PATRICIA        A        05/03/2013             MANHATTAN
+2:      JAMILA                 06/01/2017                 BRONX
+3:       KAREN        A        10/06/2004             MANHATTAN
+4: CHRISTOPHER        M        04/03/2000             MANHATTAN
+5:     SUZANNE        D        10/06/1986                 OTHER
+6:    LAURELLE        V        09/02/1997             MANHATTAN
+           Title Description Leave Status as of June 30 Base Salary Pay Basis
+1:            ANNUAL ED PARA                     ACTIVE     38914.0 per Annum
+2:         COLLEGE ASSISTANT                     ACTIVE        14.6  per Hour
+3:            ANNUAL ED PARA                     ACTIVE     35977.0 per Annum
+4:    GENERAL SUPERINTENDENT                     ACTIVE    135177.0 per Annum
+5:                   TEACHER                     ACTIVE    102043.0 per Annum
+6: TEACHER SPECIAL EDUCATION                     ACTIVE    110163.0 per Annum
+   Regular Hours Regular Gross Paid OT Hours Total OT Paid Total Other Pay
+1:          0.00           43818.34        0          0.00            0.00
+2:        253.00            4307.00        0          0.00            0.00
+3:          0.00           39138.10        0        199.29            0.00
+4:       2085.72          136789.56        0          0.00         5978.28
+5:          0.00          100883.92        0          0.00            0.00
+6:          0.00          105024.56        0          0.00            0.00</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -278,7 +271,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 10000    17</code></pre>
 </div>
 </div>
-<p>The data consists of 5.66 million rows (essentially 5.66 million municipal employees) and 17 columns. Every row basically tells us about the employee salary, their work location, agency, base pay, overtime (if any), etc.</p>
+<p>The data consists of 5.66 million rows (essentially 5.66 million municipal employees) and 17 columns. Every row basically tells us about the employee salary, their work location, agency, base pay, overtime (if any), etc. However, the data size is too large for us to handle hence we random sample our data to the size of 10000 samples.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -370,7 +363,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Payroll Number                Fiscal Year 
-                      3057                          0 
+                      3067                          0 
                Agency Name                  Last Name 
                          0                          0 
                 First Name                   Mid Init 
@@ -417,8 +410,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>Warning in .local(.Object, ...): Mid Init : some observations changing to NA</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in .local(.Object, ...): Agency Start Date : some observations changing
-to NA</code></pre>
+<pre><code>Warning in .local(.Object, ...): Mid Init : some observations . changing to NA</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in .local(.Object, ...): Work Location Borough : some observations
