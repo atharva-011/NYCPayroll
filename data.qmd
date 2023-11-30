@@ -8,7 +8,6 @@ library(redav)
 library(mi)
 library(ggplot2)
 library(data.table)
-
 ```
 
 ## Technical Description
@@ -23,10 +22,11 @@ The data can be downloaded as a [JSON file](https://data.cityofnewyork.us/resour
 ```{r}
 nyc_payroll_data <- fread("C:/Users/athar/Desktop/Columbia Sem1/edav/nyc_payroll_data.csv")
 
-# Select the first 2 million rows
-nyc_payroll_data <- nyc_payroll_data[1:2000000, ]
+# Random sample of 4000 rows
+randomized_data <- nyc_payroll_data[sample(nrow(nyc_payroll_data)), ]
+nyc_payroll_data <- randomized_data[1:10000, ]
 
-# Print the first few rows of the selected data
+# Print the first few rows of the random downsized data
 print(head(nyc_payroll_data))
 
 ```
