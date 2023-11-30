@@ -7,6 +7,8 @@ library(knitr)
 library(redav)
 library(mi)
 library(ggplot2)
+library(data.table)
+
 ```
 
 ## Technical Description
@@ -15,15 +17,25 @@ The data that we will be using to analyze Payroll Data is from the NYC Open Data
 
 The data can be downloaded as a [JSON file](https://data.cityofnewyork.us/resource/k397-673e.json) from the website mentioned above. We make an API request with this URL, to obtain the data and convert it to a Dataframe for further processing.
 
-```{r}
+
+
 #importing the dataset
-data_url <- "https://data.cityofnewyork.us/resource/k397-673e.json"
+```{r}
+nyc_payroll_data <- fread("C:/Users/athar/Desktop/Columbia Sem1/edav/nyc_payroll_data.csv")
 
-response <- httr::GET(url = data_url)
-nyc_payroll_data <- jsonlite::fromJSON(content(response, "text", encoding = "UTF-8"))
+# Select the first 2 million rows
+nyc_payroll_data <- nyc_payroll_data[1:2000000, ]
 
-print(dim(nyc_payroll_data))
+# Print the first few rows of the selected data
+print(head(nyc_payroll_data))
+
 ```
+
+```{r}
+print(dim(nyc_payroll_data))
+
+```
+
 
 The data consists of 5.66 million rows (essentially 5.66 million municipal employees) and 17 columns. Every row basically tells us about the employee salary, their work location, agency, base pay, overtime (if any), etc. 
 
