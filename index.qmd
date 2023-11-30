@@ -2,29 +2,36 @@
 
 The topic that we are working on is New York City Payroll Data Analysis. Payroll data provides insights into workforce dynamics, and demographic patterns of municipal employees of New York City. We aim to identify trends and patterns in the payroll of New York municipal employees for last 10 years (2014 - 2023). There are few topics that we think are important to study in order to understand the trends. 
 
-**Geographic Influence on Base Salaries:**
+- **Employee Compensation Distribution:**
 
-How does the geographic work location (borough) in  New York City influence the base salaries of employees?
+Examine the distribution of the total compensation of all the employees, and try to see gain insights on how salaries are distributed.
 
-**Work Experience, Payroll, and Borough Connections:**
+- **Influence of Geographic Location and Agency on Budget Allocation:**
+
+How does the geographic work location (borough) in  New York City, along with the agency, influence the budget allocation?
+
+- **Work Experience, Payroll, and Borough Connections:**
 
 Is there any connections between an individual's amount of work experience, payroll, and the specific borough where they are employed?
 
-**Job Profile Impact on Payroll:**
+- **Job Profile & Team Impact on Payroll:**
 
-Does the job profile (Title Description) have an impact on the payroll? / Are certain type of jobs are borough specific?
+Does the job profile (Title Description) have an impact on the payroll? / Are certain type of jobs are agency specific? How do the salaries vary?
 
+- **Overtime Work and Payroll Relationship Over Time:**
 
-**Overtime Work and Payroll Relationship:**
+How has the relationship between overtime work and the payroll evolvd over time?
 
-What is the relationship between overtime work and the payroll?
-
-**Leave Status and Workforce Dynamics:**
+- **Leave Status and Workforce Dynamics:**
 
 Examining the leave status of employees.
+
+- **Examining the Distribution of the Breakdown of the Salaries"**
+
+How are the various components of the total pay distributed?
 
 
 Additionally, we can study financial resources allocation and how much resources are devoted to overtime. Examining the impact of job profiles on payroll and identifying any borough-specific jobs will offer a deeper understanding of the payroll dynamics. Furthermore, the analysis into the relationship between overtime work and payroll aims to uncover insights into work culture and potential areas for improvement in work-life balance and the payroll itself(underpaid / overpaid).
 
-By addressing above mentioned questions, through exploratory data analysis and visualisation we can gain insights to form more inclusive and fair policies aimed  at bridging income gaps, a better and inclusive job market, and guiding initiatives related to education, upskilling, and training to even out the disparity. 
+By addressing above mentioned questions, through exploratory data analysis and visualization we can gain insights to form more inclusive and fair policies aimed  at bridging income gaps, a better and inclusive job market, and guiding initiatives related to education, up-skilling, and training to even out the disparity, if any.
 
