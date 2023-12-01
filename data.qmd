@@ -18,11 +18,10 @@ The data can be downloaded as a [JSON file](https://data.cityofnewyork.us/resour
 
 
 
-#importing the dataset
+
 ```{r}
-
+#importing the dataset
 nyc_payroll_data <- fread("C:/Users/athar/Desktop/Columbia Sem1/edav/nyc_payroll_data.csv")
-
 print(head(nyc_payroll_data))
 
 ```
@@ -31,7 +30,6 @@ print(head(nyc_payroll_data))
 print(dim(nyc_payroll_data))
 
 ```
-
 
 The data consists of 5.66 million rows (essentially 5.66 million municipal employees) and 17 columns. Every row basically tells us about the employee salary, their work location, agency, base pay, overtime (if any), etc. However, the data size is too large for efficient processing hence we random sample our data to the size of 10000 samples for our study.
 
@@ -51,7 +49,23 @@ On further examination of the data, we find that there are few inconsistencies i
 
 ## Research Plan
 
-Explain in detail how your data will enable you to answer your research questions from the introduction. 
+* To understand the employee compensation, we can use a histogram to study the distribution of salaries.
+
+* While understanding the distribution of total pay is important, we also plan to see how these salaries are broken down and how various components of these salaries are distributed, using Scatter Plots. 
+
+* We can also use grouped bar charts, to understand these relationships over time.
+
+* Using a heatmap, with the budget as the color scale, we will be able to uncover any biases when it comes to salaries based on boroughs and agencies.
+
+* A Mosaic plot will be ideal to unravel patterns and compare multivariate relationships when it comes to the salaries earned based on the Job Title and the boroughs.
+
+* A faceted scatterplot, or a faceted barplot would help us present insights on how the relationship between overtime pay and the corresponding payroll has evolved over the years.
+
+* Since we can show the boroughs of NYC using an actual map, we plan to categorize an individual's work experience, and then use that to show how their compensation varies in different parts of NYC, w.r.t. their work experience.
+
+* We also aim to analyze the leave status and workforce dynamics. Leave status typically indicates whether an employee is on leave or not, and if so, what type of leave they are on. This information is often valuable for HR and management to understand workforce availability, plan for staffing needs, and monitor employee well-being.
+
+* We also plan to make use of D3 to make some other interactive graphs showing some other relationships.
 
 
 ## Missing Value Analysis
