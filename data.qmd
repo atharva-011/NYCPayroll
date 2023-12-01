@@ -20,13 +20,9 @@ The data can be downloaded as a [JSON file](https://data.cityofnewyork.us/resour
 
 #importing the dataset
 ```{r}
+
 nyc_payroll_data <- fread("C:/Users/athar/Desktop/Columbia Sem1/edav/nyc_payroll_data.csv")
 
-# Random sample of 10000 rows
-randomized_data <- nyc_payroll_data[sample(nrow(nyc_payroll_data)), ]
-nyc_payroll_data <- randomized_data[1:10000, ]
-
-# Print the first few rows of the random downsized data
 print(head(nyc_payroll_data))
 
 ```
