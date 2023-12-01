@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -91,8 +91,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-submit-button-title": "Submit"
   }
 }</script>
 
@@ -111,7 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -125,7 +124,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="./">NYC Payroll Data Analysis</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/atharva-011/NYCPayroll" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/atharva-011/NYCPayroll" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -205,80 +204,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(redav)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mi)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importing Necessary Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(redav)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mi)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="technical-description" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="technical-description"><span class="header-section-number">2.1</span> Technical Description</h2>
 <p>The data that we will be using to analyze Payroll Data is from the NYC Open Data <a href="https://opendata.cityofnewyork.us/">website</a> and is titled as <a href="https://data.cityofnewyork.us/City-Government/Citywide-Payroll-Data-Fiscal-Year-/k397-673e"><strong>Citywide Payroll Data (Fiscal Year)</strong></a>. The data set was created back in 2015 and has been constantly been updated on a annual basis (last update was on November 28,2023). It tells us about the amount of money spent on salaries and overtime pay for all municipal employees based in New York City. The data is provided by <strong>Office of Payroll Administration (OPA)</strong>.</p>
-<p>The data can be downloaded as a <a href="https://data.cityofnewyork.us/resource/k397-673e.json">JSON file</a> from the website mentioned above. We make an API request with this URL, to obtain the data and convert it to a Dataframe for further processing.</p>
-<p>#importing the dataset</p>
+<p>The data can be downloaded as a CSV file from the website mentioned above. The entirety of the dataset consists of 5.66 million rows (essentially 5.66 million municipal employees) and 17 columns. Every row basically tells us about the employee salary, their work location, agency, base pay, overtime (if any), etc.</p>
+<p>However, the dataset is too large for efficient processing. Hence, we randomly sample our data and retrieve 10000 samples for our analysis. The code for the same can be found below, but has been commented out, as such large files cannot be uploaded to GitHub, and rendering will be affected.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>nyc_payroll_data <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"C:/Users/athar/Desktop/Columbia Sem1/edav/nyc_payroll_data.csv"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(nyc_payroll_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># complete_payroll_data &lt;-</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   fread("./Data/nyc_payroll_data_complete.csv")</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># # Take Random sample of 10000 rows</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># random_data &lt;- nyc_payroll_data[sample(nrow(nyc_payroll_data)),]</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># nyc_payroll_data &lt;- randomized_data[1:10000,]</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(nyc_payroll_data, paste("./Data/", 'nyc_payroll_data.csv'))</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Importing the Dataset</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>nyc_payroll_data <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"./Data/nyc_payroll_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>   Fiscal Year Payroll Number                   Agency Name   Last Name
-1:        2017             NA COMMUNITY COLLEGE (KINGSBORO)     DURRANT
-2:        2018            742        DEPT OF ED PEDAGOGICAL   FORSCHEIN
-3:        2015             NA        DEPT OF ED PEDAGOGICAL SITTENREICH
-4:        2019            744 DEPT OF ED PARA PROFESSIONALS      VARGAS
-5:        2017             NA     ADMIN FOR CHILDREN'S SVCS      GARNER
-6:        2021            742        DEPT OF ED PEDAGOGICAL      CARPIO
-   First Name Mid Init Agency Start Date Work Location Borough
-1:    SHERYLL        A        06/18/2015              BROOKLYN
-2:    DEBORAH                 09/08/1998             MANHATTAN
-3:      ROBIN        A        09/04/1974                 OTHER
-4:    ROSANNA                 09/16/2014             MANHATTAN
-5:    LASHAWN        M        09/25/2001             MANHATTAN
-6:    GERARDO        L        09/19/2005             MANHATTAN
-              Title Description Leave Status as of June 30 Base Salary
-1: CONTINUING EDUCATION TEACHER                     ACTIVE       36.64
-2:                      TEACHER                     ACTIVE   113685.00
-3:    TEACHER SPECIAL EDUCATION                     CEASED   100049.00
-4:               ANNUAL ED PARA                     CEASED    37055.00
-5:  CHILD PROTECTIVE SPECIALIST                   ON LEAVE    54720.00
-6:                      TEACHER                     ACTIVE   109852.00
-   Pay Basis Regular Hours Regular Gross Paid OT Hours Total OT Paid
-1:  per Hour          0.00              39.78     0.00          0.00
-2: per Annum          0.00          103130.28     0.00          0.00
-3: per Annum          0.00           55669.50     0.00          0.00
-4: per Annum          0.00            4479.66     0.00          0.00
-5: per Annum        979.25           31839.91   112.75       4597.92
-6: per Annum          0.00          105666.72     0.00          0.00
-   Total Other Pay
-1:            0.00
-2:            0.00
-3:            0.00
-4:            7.96
-5:         2482.28
-6:         4425.57</code></pre>
-</div>
 </div>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">dim</span>(nyc_payroll_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">dim</span>(nyc_payroll_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 10000    17</code></pre>
 </div>
 </div>
-<p>The data consists of 5.66 million rows (essentially 5.66 million municipal employees) and 17 columns. Every row basically tells us about the employee salary, their work location, agency, base pay, overtime (if any), etc. However, the data size is too large for efficient processing hence we random sample our data to the size of 10000 samples for our study.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display columns of the dataset</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">data.frame</span>(<span class="at">Column_Names =</span> <span class="fu">names</span>(nyc_payroll_data)), <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display Columns of the dataset</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">data.frame</span>(<span class="at">Column_Names =</span> <span class="fu">names</span>(nyc_payroll_data)), <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -352,16 +320,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="research-plan" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="research-plan"><span class="header-section-number">2.2</span> Research Plan</h2>
-<p>Explain in detail how your data will enable you to answer your research questions from the introduction.</p>
+<ul>
+<li><p>To understand the employee compensation, we can use a histogram to study the distribution of salaries.</p></li>
+<li><p>While understanding the distribution of total pay is important, we also plan to see how these salaries are broken down and how various components of these salaries are distributed, using Scatter Plots.</p></li>
+<li><p>We can also use grouped bar charts, to understand these relationships over time.</p></li>
+<li><p>Using a heatmap, with the budget as the color scale, we will be able to uncover any biases when it comes to salaries based on boroughs and agencies.</p></li>
+<li><p>A Mosaic plot will be ideal to unravel patterns and compare multivariate relationships when it comes to the salaries earned based on the Job Title and the boroughs.</p></li>
+<li><p>A faceted scatterplot, or a faceted barplot would help us present insights on how the relationship between overtime pay and the corresponding payroll has evolved over the years.</p></li>
+<li><p>Since we can show the boroughs of NYC using an actual map, we plan to categorize an individual’s work experience, and then use that to show how their compensation varies in different parts of NYC, w.r.t. their work experience.</p></li>
+<li><p>We also aim to analyze the leave status and workforce dynamics. Leave status typically indicates whether an employee is on leave or not, and if so, what type of leave they are on. This information is often valuable for HR and management to understand workforce availability, plan for staffing needs, and monitor employee well-being.</p></li>
+<li><p>We also plan to make use of D3 to make some other interactive graphs showing some other relationships.</p></li>
+</ul>
 </section>
 <section id="missing-value-analysis" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="missing-value-analysis"><span class="header-section-number">2.3</span> Missing Value Analysis</h2>
-<p>Describe any patterns you discover in missing values. If no values are missing, graphs should still be included showing that.</p>
-<p>(suggested: 2 graphs plus commentary) Showing count of NAN values per column</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(nyc_payroll_data)) <span class="sc">|&gt;</span> <span class="fu">sort</span>(<span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(nyc_payroll_data)) <span class="sc">|&gt;</span> <span class="fu">sort</span>(<span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Payroll Number                Fiscal Year 
@@ -384,40 +360,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                          0 </code></pre>
 </div>
 </div>
-<p>We see that only one column, namely <code>mid_init</code> has missing values. This feature represents the middle initial of the person under consideration.</p>
+<p>We see that only one column, namely <code>Payroll Number</code> has missing values.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(nyc_payroll_data, <span class="at">percent =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(nyc_payroll_data, <span class="at">percent =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="data_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="2880"></p>
 </div>
 </div>
-<p>As can be seen from the above plot, there are only two patterns which can be observed in our data. The first being the complete lack of NaN values, whereas the second pattern exhibits missing values in one column only, namely, <code>mid_init</code>.</p>
-<p>The graph on the right shows that there are nearly 300 rows exhibiting the second pattern, and about 700 points exhibiting the first, where they do not have any missing values at all.</p>
+<p>As can be seen from the above plot, there are only two patterns which can be observed in our data. The first being the complete lack of NaN values, whereas the second pattern exhibits missing values in one column only, namely, <code>Payroll Number</code>.</p>
+<p>The graph on the right shows that there are nearly 3000 rows exhibiting the second pattern, and about 7000 points exhibiting the first, where they do not have any missing values at all.</p>
 <p>We also get to see which columns have missing values in the form of a bar chart on top, and see that only one column falls under this category.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">missing_data.frame</span>(nyc_payroll_data) <span class="sc">|&gt;</span> <span class="fu">image</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">missing_data.frame</span>(nyc_payroll_data) <span class="sc">|&gt;</span> <span class="fu">image</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in .local(.Object, ...): Last Name : some observations changing to NA</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in .local(.Object, ...): First Name : some observations changing to NA</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in .local(.Object, ...): Mid Init : some observations changing to NA</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in .local(.Object, ...): Mid Init : some observations . changing to NA</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in .local(.Object, ...): Work Location Borough : some observations
-changing to NA</code></pre>
-</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NOTE: The following pairs of variables appear to have the same missingness pattern.
  Please verify whether they are in fact logically distinct variables.
@@ -428,9 +388,8 @@ changing to NA</code></pre>
 <p><img src="data_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>This graph shows us the missing values in the entire dataset. The cells represent the actual values after scaling, defined by each row and column of the actual dataset. Higher values take on the lighter colors, whereas colors close to red represent values closer to -1.</p>
-<p>The values in black, indicate missing data. Here, we see that <code>mid_init</code> has missing data for nearly 300 hundred contiguous rows.</p>
-<p>Although the absolute reason for the same is unknown, it could be possible that this data was not collected at all in that period. This can be inferred from the pattern.</p>
+<p>This graph shows us the missing values in the entire dataset. The cells represent the actual values after scaling, defined by each row and column of the actual dataset. Higher values take on the lighter colors, whereas colors close to red represent values which are lower.</p>
+<p>The values in black, indicate missing data. Here, we see that <code>Payroll Number</code> has missing data for nearly 3000 hundred contiguous rows.</p>
 
 
 </section>
