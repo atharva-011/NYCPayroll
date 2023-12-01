@@ -1,6 +1,7 @@
 # Data
 
 ```{r message=FALSE, warning=FALSE}
+# Importing Necessary Libraries
 library(httr)
 library(jsonlite)
 library(knitr)
@@ -14,27 +15,29 @@ library(data.table)
 
 The data that we will be using to analyze Payroll Data is from the NYC Open Data [website](https://opendata.cityofnewyork.us/) and is titled as  [**Citywide Payroll Data (Fiscal Year)**](https://data.cityofnewyork.us/City-Government/Citywide-Payroll-Data-Fiscal-Year-/k397-673e). The data set was created back in 2015 and has been constantly been updated on a annual basis (last update was on November 28,2023). It tells us about the amount of money spent on salaries and overtime pay for all municipal employees based in New York City. The data is provided by **Office of Payroll Administration (OPA)**. 
 
-The data can be downloaded as a [JSON file](https://data.cityofnewyork.us/resource/k397-673e.json) from the website mentioned above. We make an API request with this URL, to obtain the data and convert it to a Dataframe for further processing.
+The data can be downloaded as a CSV file from the website mentioned above. The entirety of the dataset consists of 5.66 million rows (essentially 5.66 million municipal employees) and 17 columns. Every row basically tells us about the employee salary, their work location, agency, base pay, overtime (if any), etc. 
 
-
+However, the dataset is too large for efficient processing. Hence, we randomly sample our data and retrieve 10000 samples for our analysis. The code for the same can be found below, but has been commented out, as such large files cannot be uploaded to GitHub, and rendering will be affected.
 
 
 ```{r}
-#importing the dataset
-nyc_payroll_data <- fread("C:/Users/athar/Desktop/Columbia Sem1/edav/nyc_payroll_data.csv")
-print(head(nyc_payroll_data))
+# complete_payroll_data <-
+#   fread("./Data/nyc_payroll_data_complete.csv")
+# # Take Random sample of 10000 rows
+# random_data <- nyc_payroll_data[sample(nrow(nyc_payroll_data)),]
+# nyc_payroll_data <- randomized_data[1:10000,]
+# write.csv(nyc_payroll_data, paste("./Data/", 'nyc_payroll_data.csv'))
 
+#Importing the Dataset
+nyc_payroll_data <- fread("./Data/nyc_payroll_data.csv")
 ```
 
 ```{r}
 print(dim(nyc_payroll_data))
-
 ```
 
-The data consists of 5.66 million rows (essentially 5.66 million municipal employees) and 17 columns. Every row basically tells us about the employee salary, their work location, agency, base pay, overtime (if any), etc. However, the data size is too large for efficient processing hence we random sample our data to the size of 10000 samples for our study.
-
 ```{r}
-# Display columns of the dataset
+# Display Columns of the dataset
 kable(data.frame(Column_Names = names(nyc_payroll_data)), "markdown")
 
 ```
@@ -70,34 +73,26 @@ On further examination of the data, we find that there are few inconsistencies i
 
 ## Missing Value Analysis
 
-Describe any patterns you discover in missing values. If no values are missing, graphs should still be included showing that.
-
-(suggested: 2 graphs plus commentary)
-Showing count of NAN values per column
-
 ```{r}
 colSums(is.na(nyc_payroll_data)) |> sort(decreasing = TRUE)
 ```
 
-We see that only one column, namely `mid_init` has missing values. This feature represents the middle initial of the person under consideration. 
+We see that only one column, namely `Payroll Number` has missing values.
 
 ```{r, fig.height=18, fig.width=30}
 plot_missing(nyc_payroll_data, percent = FALSE)
 ```
 
-As can be seen from the above plot, there are only two patterns which can be observed in our data. The first being the complete lack of NaN values, whereas the second pattern exhibits missing values in one column only, namely, `mid_init`.
+As can be seen from the above plot, there are only two patterns which can be observed in our data. The first being the complete lack of NaN values, whereas the second pattern exhibits missing values in one column only, namely, `Payroll Number`.
 
-The graph on the right shows that there are nearly 300 rows exhibiting the second pattern, and about 700 points exhibiting the first, where they do not have any missing values at all.
+The graph on the right shows that there are nearly 3000 rows exhibiting the second pattern, and about 7000 points exhibiting the first, where they do not have any missing values at all.
 
 We also get to see which columns have missing values in the form of a bar chart on top, and see that only one column falls under this category.
 
-```{r, fig.height=11}
+```{r, message=FALSE, warning=FALSE, fig.height=11}
 missing_data.frame(nyc_payroll_data) |> image()
 ```
 
+This graph shows us the missing values in the entire dataset. The cells represent the actual values after scaling, defined by each row and column of the actual dataset. Higher values take on the lighter colors, whereas colors close to red represent values which are lower.
 
-This graph shows us the missing values in the entire dataset. The cells represent the actual values after scaling, defined by each row and column of the actual dataset. Higher values take on the lighter colors, whereas colors close to red represent values closer to -1. 
-
-The values in black, indicate missing data. Here, we see that `mid_init` has missing data for nearly 300 hundred contiguous rows.
-
-Although the absolute reason for the same is unknown, it could be possible that this data was not collected at all in that period. This can be inferred from the pattern.
+The values in black, indicate missing data. Here, we see that `Payroll Number` has missing data for nearly 3000 hundred contiguous rows.
