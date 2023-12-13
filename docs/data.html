@@ -205,13 +205,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importing Necessary Libraries</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(redav)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mi)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(redav)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mi)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="technical-description" class="level2" data-number="2.1">
@@ -230,7 +229,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(nyc_payroll_data, paste("./Data/", 'nyc_payroll_data.csv'))</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Importing the Dataset</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>nyc_payroll_data <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"./Data/nyc_payroll_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>nyc_payroll_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"./Data/nyc_payroll_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
@@ -246,7 +245,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display Columns of the dataset</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">data.frame</span>(<span class="at">Column_Names =</span> <span class="fu">names</span>(nyc_payroll_data)), <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Display Columns of the dataset</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">data.frame</span>(<span class="at">Column_Names =</span> <span class="fu">names</span>(nyc_payroll_data)), <span class="st">"markdown"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -257,55 +257,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Fiscal Year</td>
+<td style="text-align: left;">Fiscal.Year</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Payroll Number</td>
+<td style="text-align: left;">Payroll.Number</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Agency Name</td>
+<td style="text-align: left;">Agency.Name</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Last Name</td>
+<td style="text-align: left;">Last.Name</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">First Name</td>
+<td style="text-align: left;">First.Name</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Mid Init</td>
+<td style="text-align: left;">Mid.Init</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Agency Start Date</td>
+<td style="text-align: left;">Agency.Start.Date</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Work Location Borough</td>
+<td style="text-align: left;">Work.Location.Borough</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Title Description</td>
+<td style="text-align: left;">Title.Description</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Leave Status as of June 30</td>
+<td style="text-align: left;">Leave.Status.as.of.June.30</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Base Salary</td>
+<td style="text-align: left;">Base.Salary</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Pay Basis</td>
+<td style="text-align: left;">Pay.Basis</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Regular Hours</td>
+<td style="text-align: left;">Regular.Hours</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Regular Gross Paid</td>
+<td style="text-align: left;">Regular.Gross.Paid</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">OT Hours</td>
+<td style="text-align: left;">OT.Hours</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Total OT Paid</td>
+<td style="text-align: left;">Total.OT.Paid</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Total Other Pay</td>
+<td style="text-align: left;">Total.Other.Pay</td>
 </tr>
 </tbody>
 </table>
@@ -314,9 +314,83 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Presented above are the columns of the dataset.</p>
 <p>On further examination of the data, we find that there are few inconsistencies in the data:</p>
 <ul>
-<li><p>The salaries for certain employees have not been mentioned per annum but on a per day or hour basis. Hence, we need to scale the data accordingly, to ensure that the data is uniform and fair comparisons can be made.</p></li>
-<li><p>There exist some NAN values in the data.</p></li>
+<li><p>The column indicative of the Middle Initial of employees, namely, Mid.Init, does not have explicit NA values. However, it has empty strings such as ““,”-” and “.” which essentially show empty entries and can be considered as NA values. This conversion needs to be made.</p></li>
+<li><p>“Work.Location.Borough” has different boroughs from different parts of New York State such as Albany, Westchester, Delaware etc. Moreover, Staten Island has been mentioned as Richmond County and Manhattan and Bronx have been mentioned twice, where they differ in capitalization. The data also has empty strings.</p></li>
 </ul>
+<p>For our study, we wish to consider only the 5 boroughs of NYC, namely, Manhattan, Brooklyn, Queens, Bronx and Staten Island. The data needs to be preprocessed for the same.</p>
+<ul>
+<li><p>The salaries for employees have not been mentioned on a consistent scale. We have base salaries mentioned per annum, per day, per hour and on a prorated annual basis as well. The scale needs to be consistent for fair comparisons, and we look to convert the data to a “per Day” basis, so as to compare our results with the daily wage.</p></li>
+<li><p>Finally, the data after our preprocessing will contain NA values which need to be dealt with.</p></li>
+</ul>
+<p>The above inconsistencies have been made based on our analysis as seen below. For the sake of clean code, we have excluded the code and analysis for those columns which did not have any inconsistencies.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Analyzing Data to Uncover any Possible Inconsistencies</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(nyc_payroll_data<span class="sc">$</span>Mid.Init)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "A" ""  "M" "L" "D" "T" "B" "W" "S" "K" "H" "R" "N" "J" "C" "F" "V" "E" "Y"
+[20] "P" "I" "O" "G" "X" "." "U" "Z" "1" "Q" "-"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(nyc_payroll_data<span class="sc">$</span>Work.Location.Borough)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "BROOKLYN"    "MANHATTAN"   "OTHER"       "QUEENS"      ""           
+ [6] "BRONX"       "RICHMOND"    "ULSTER"      "WESTCHESTER" "DUTCHESS"   
+[11] "SULLIVAN"    "DELAWARE"    "ALBANY"      "Manhattan"   "Bronx"      </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(nyc_payroll_data<span class="sc">$</span>Pay.Basis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "per Hour"        "per Annum"       "per Day"         "Prorated Annual"</code></pre>
+</div>
+</div>
+<p>Apart from handling NA values, the inconsistencies have been dealt with below:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting Empty Strings to NA values in "Mid.Init"</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>nyc_payroll_data<span class="sc">$</span>Mid.Init[nyc_payroll_data<span class="sc">$</span>Mid.Init<span class="sc">==</span><span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>nyc_payroll_data<span class="sc">$</span>Mid.Init[nyc_payroll_data<span class="sc">$</span>Mid.Init<span class="sc">==</span><span class="st">"-"</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>nyc_payroll_data<span class="sc">$</span>Mid.Init[nyc_payroll_data<span class="sc">$</span>Mid.Init<span class="sc">==</span><span class="st">"."</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Fixing Issues in "Work.Location.Borough"</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>nyc_payroll_data<span class="sc">$</span>Work.Location.Borough[nyc_payroll_data<span class="sc">$</span>Work.Location.Borough<span class="sc">==</span><span class="st">""</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>nyc_payroll_data<span class="sc">$</span>Work.Location.Borough[nyc_payroll_data<span class="sc">$</span>Work.Location.Borough<span class="sc">==</span><span class="st">"Manhattan"</span>] <span class="ot">&lt;-</span> <span class="st">"MANHATTAN"</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>nyc_payroll_data<span class="sc">$</span>Work.Location.Borough[nyc_payroll_data<span class="sc">$</span>Work.Location.Borough<span class="sc">==</span><span class="st">"Bronx"</span>] <span class="ot">&lt;-</span> <span class="st">"BRONX"</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>nyc_payroll_data<span class="sc">$</span>Work.Location.Borough[nyc_payroll_data<span class="sc">$</span>Work.Location.Borough<span class="sc">==</span><span class="st">"RICHMOND"</span>] <span class="ot">&lt;-</span> <span class="st">"STATEN ISLAND"</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>nyc_boroughs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"BROOKLYN"</span>, <span class="st">"MANHATTAN"</span>, <span class="st">"QUEENS"</span>, <span class="st">"BRONX"</span>, <span class="st">"STATEN ISLAND"</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>nyc_payroll_data <span class="ot">&lt;-</span> nyc_payroll_data[nyc_payroll_data<span class="sc">$</span>Work.Location.Borough <span class="sc">%in%</span> nyc_boroughs,]</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Making Data Scale Consistent in Base.Salary through Pay.Basis </span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Adding new column "Daily.Salary"</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>nyc_payroll_data <span class="ot">&lt;-</span> nyc_payroll_data[<span class="sc">!</span>(nyc_payroll_data<span class="sc">$</span>Pay.Basis <span class="sc">%in%</span> <span class="st">"Prorated Annual"</span>),]</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>nyc_payroll_data <span class="ot">&lt;-</span> nyc_payroll_data <span class="sc">|&gt;</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">Daily.Salary =</span> <span class="fu">case_when</span>(</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>      Pay.Basis <span class="sc">==</span> <span class="st">"per Hour"</span> <span class="sc">~</span> Base.Salary <span class="sc">*</span> <span class="dv">24</span>,</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>      Pay.Basis <span class="sc">==</span> <span class="st">"per Annum"</span> <span class="sc">~</span> Base.Salary <span class="sc">/</span> <span class="dv">365</span>,</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> Base.Salary</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>We save this data as a CSV and read the cleaned version for the next segment.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(nyc_payroll_data, "./Data/cleaned_nyc_payroll.csv", row.names = FALSE)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>clean_nyc_payroll <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"./Data/cleaned_nyc_payroll.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 </section>
 <section id="research-plan" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="research-plan"><span class="header-section-number">2.2</span> Research Plan</h2>
@@ -337,37 +411,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(nyc_payroll_data)) <span class="sc">|&gt;</span> <span class="fu">sort</span>(<span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(clean_nyc_payroll)) <span class="sc">|&gt;</span> <span class="fu">sort</span>(<span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>            Payroll Number                Fiscal Year 
-                      3047                          0 
-               Agency Name                  Last Name 
+<pre><code>                  Mid.Init             Payroll.Number 
+                      3594                       2856 
+               Fiscal.Year                Agency.Name 
                          0                          0 
-                First Name                   Mid Init 
+                 Last.Name                 First.Name 
                          0                          0 
-         Agency Start Date      Work Location Borough 
+         Agency.Start.Date      Work.Location.Borough 
                          0                          0 
-         Title Description Leave Status as of June 30 
+         Title.Description Leave.Status.as.of.June.30 
                          0                          0 
-               Base Salary                  Pay Basis 
+               Base.Salary                  Pay.Basis 
                          0                          0 
-             Regular Hours         Regular Gross Paid 
+             Regular.Hours         Regular.Gross.Paid 
                          0                          0 
-                  OT Hours              Total OT Paid 
+                  OT.Hours              Total.OT.Paid 
                          0                          0 
-           Total Other Pay 
-                         0 </code></pre>
+           Total.Other.Pay               Daily.Salary 
+                         0                          0 </code></pre>
 </div>
 </div>
 <p>We see that only one column, namely <code>Payroll Number</code> has missing values.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(nyc_payroll_data, <span class="at">percent =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(clean_nyc_payroll, <span class="at">percent =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="data_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="2880"></p>
+<p><img src="data_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="2880"></p>
 </div>
 </div>
 <p>As can be seen from the above plot, there are only two patterns which can be observed in our data. The first being the complete lack of NaN values, whereas the second pattern exhibits missing values in one column only, namely, <code>Payroll Number</code>.</p>
@@ -376,16 +450,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">missing_data.frame</span>(nyc_payroll_data) <span class="sc">|&gt;</span> <span class="fu">image</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">missing_data.frame</span>(clean_nyc_payroll) <span class="sc">|&gt;</span> <span class="fu">image</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>NOTE: The following pairs of variables appear to have the same missingness pattern.
  Please verify whether they are in fact logically distinct variables.
      [,1]        [,2]        
-[1,] "Last Name" "First Name"</code></pre>
+[1,] "Last.Name" "First.Name"</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="data_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="data_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>This graph shows us the missing values in the entire dataset. The cells represent the actual values after scaling, defined by each row and column of the actual dataset. Higher values take on the lighter colors, whereas colors close to red represent values which are lower.</p>

@@ -2,13 +2,12 @@
 
 ```{r message=FALSE, warning=FALSE}
 # Importing Necessary Libraries
-library(httr)
-library(jsonlite)
 library(knitr)
 library(redav)
 library(mi)
 library(ggplot2)
 library(data.table)
+library(dplyr)
 ```
 
 ## Technical Description
@@ -29,7 +28,7 @@ However, the dataset is too large for efficient processing. Hence, we randomly s
 # write.csv(nyc_payroll_data, paste("./Data/", 'nyc_payroll_data.csv'))
 
 #Importing the Dataset
-nyc_payroll_data <- fread("./Data/nyc_payroll_data.csv")
+nyc_payroll_data <- read.csv("./Data/nyc_payroll_data.csv")
 ```
 
 ```{r}
@@ -37,6 +36,7 @@ print(dim(nyc_payroll_data))
 ```
 
 ```{r}
+# Display Columns of the dataset
 # Display Columns of the dataset
 kable(data.frame(Column_Names = names(nyc_payroll_data)), "markdown")
 
@@ -46,9 +46,65 @@ Presented above are the columns of the dataset.
 
 On further examination of the data, we find that there are few inconsistencies in the data:
 
-- The salaries for certain employees have not been mentioned per annum but on a per day or hour basis. Hence, we need to scale the data accordingly, to ensure that the data is uniform and fair comparisons can be made.
+- The column indicative of the Middle Initial of employees, namely, Mid.Init, does not have explicit NA values. However, it has empty strings such as "", "-" and "." which essentially show empty entries and can be considered as NA values. This conversion needs to be made. 
 
-- There exist some NAN values in the data.
+- "Work.Location.Borough" has different boroughs from different parts of New York State such as Albany, Westchester, Delaware etc. Moreover, Staten Island has been mentioned as Richmond County and Manhattan and Bronx have been mentioned twice, where they differ in capitalization. The data also has empty strings.
+
+For our study, we wish to consider only the 5 boroughs of NYC, namely, Manhattan, Brooklyn, Queens, Bronx and Staten Island. The data needs to be preprocessed for the same. 
+
+- The salaries for employees have not been mentioned on a consistent scale. We have base salaries mentioned per annum, per day, per hour and on a prorated annual basis as well. The scale needs to be consistent for fair comparisons, and we look to convert the data to a "per Day" basis, so as to compare our results with the daily wage. 
+
+- Finally, the data after our preprocessing will contain NA values which need to be dealt with.
+
+The above inconsistencies have been made based on our analysis as seen below. For the sake of clean code, we have excluded the code and analysis for those columns which did not have any inconsistencies.
+
+```{r}
+#Analyzing Data to Uncover any Possible Inconsistencies
+unique(nyc_payroll_data$Mid.Init)
+unique(nyc_payroll_data$Work.Location.Borough)
+unique(nyc_payroll_data$Pay.Basis)
+```
+
+Apart from handling NA values, the inconsistencies have been dealt with below:
+
+```{r}
+# Converting Empty Strings to NA values in "Mid.Init"
+nyc_payroll_data$Mid.Init[nyc_payroll_data$Mid.Init==""] <- NA
+nyc_payroll_data$Mid.Init[nyc_payroll_data$Mid.Init=="-"] <- NA
+nyc_payroll_data$Mid.Init[nyc_payroll_data$Mid.Init=="."] <- NA
+
+# Fixing Issues in "Work.Location.Borough"
+nyc_payroll_data$Work.Location.Borough[nyc_payroll_data$Work.Location.Borough==""] <- NA
+nyc_payroll_data$Work.Location.Borough[nyc_payroll_data$Work.Location.Borough=="Manhattan"] <- "MANHATTAN"
+nyc_payroll_data$Work.Location.Borough[nyc_payroll_data$Work.Location.Borough=="Bronx"] <- "BRONX"
+nyc_payroll_data$Work.Location.Borough[nyc_payroll_data$Work.Location.Borough=="RICHMOND"] <- "STATEN ISLAND"
+
+nyc_boroughs <- c("BROOKLYN", "MANHATTAN", "QUEENS", "BRONX", "STATEN ISLAND")
+nyc_payroll_data <- nyc_payroll_data[nyc_payroll_data$Work.Location.Borough %in% nyc_boroughs,]
+
+# Making Data Scale Consistent in Base.Salary through Pay.Basis 
+# Adding new column "Daily.Salary"
+
+nyc_payroll_data <- nyc_payroll_data[!(nyc_payroll_data$Pay.Basis %in% "Prorated Annual"),]
+
+nyc_payroll_data <- nyc_payroll_data |>
+  mutate(
+    Daily.Salary = case_when(
+      Pay.Basis == "per Hour" ~ Base.Salary * 24,
+      Pay.Basis == "per Annum" ~ Base.Salary / 365,
+      TRUE ~ Base.Salary
+    )
+  )
+```
+
+
+We save this data as a CSV and read the cleaned version for the next segment.
+
+```{r}
+# write.csv(nyc_payroll_data, "./Data/cleaned_nyc_payroll.csv", row.names = FALSE)
+clean_nyc_payroll <- read.csv("./Data/cleaned_nyc_payroll.csv")
+
+```
 
 ## Research Plan
 
@@ -74,13 +130,13 @@ On further examination of the data, we find that there are few inconsistencies i
 ## Missing Value Analysis
 
 ```{r}
-colSums(is.na(nyc_payroll_data)) |> sort(decreasing = TRUE)
+colSums(is.na(clean_nyc_payroll)) |> sort(decreasing = TRUE)
 ```
 
 We see that only one column, namely `Payroll Number` has missing values.
 
 ```{r, fig.height=18, fig.width=30}
-plot_missing(nyc_payroll_data, percent = FALSE)
+plot_missing(clean_nyc_payroll, percent = FALSE)
 ```
 
 As can be seen from the above plot, there are only two patterns which can be observed in our data. The first being the complete lack of NaN values, whereas the second pattern exhibits missing values in one column only, namely, `Payroll Number`.
@@ -90,7 +146,7 @@ The graph on the right shows that there are nearly 3000 rows exhibiting the seco
 We also get to see which columns have missing values in the form of a bar chart on top, and see that only one column falls under this category.
 
 ```{r, message=FALSE, warning=FALSE, fig.height=11}
-missing_data.frame(nyc_payroll_data) |> image()
+missing_data.frame(clean_nyc_payroll) |> image()
 ```
 
 This graph shows us the missing values in the entire dataset. The cells represent the actual values after scaling, defined by each row and column of the actual dataset. Higher values take on the lighter colors, whereas colors close to red represent values which are lower.
