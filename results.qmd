@@ -1,1 +1,151 @@
-# Results
+```{r}
+library(ggplot2)
+clean_nyc_payroll <- read.csv("./Data/cleaned_nyc_payroll.csv")
+
+clean_nyc_payroll$Work.Location.Borough <-factor(clean_nyc_payroll$Work.Location.Borough, 
+          levels = c("MANHATTAN", "QUEENS", "BROOKLYN", "BRONX",  "STATEN ISLAND"))
+
+# Plot
+ggplot(clean_nyc_payroll, aes(x = Work.Location.Borough)) +
+  geom_bar(fill = "cornflowerblue") +
+  theme_minimal() +
+  labs(title = "Distribution of Work place location",
+       x = "Borough",
+       y = "Count")
+
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+
+agency_counts <- clean_nyc_payroll %>%
+  count(Agency.Name) %>%
+  arrange(desc(n))
+
+ggplot(agency_counts, aes(x = reorder(Agency.Name, n), y = n)) +
+  geom_segment(aes(xend = Agency.Name, yend = 0), color = "skyblue") +
+  geom_point(color = "blue", size = 3) +
+  coord_flip() +  
+  theme_minimal() +
+  theme(axis.text.y = element_text(size = 5)) + 
+  labs(title = "Number of Workers in Each Agency",
+       x = "Number of Workers",
+       y = "Agency Name")
+
+```
+
+```{r fig.height= 10}
+agency_counts$category <- cut(agency_counts$n, 
+                              breaks = c(0,50, 100, 500, 1000, 1500, 2000, Inf),
+                              labels = c("0-50", "50-100", "100-500", "500-1000", "1000-1500", "1500-2000", "2000+"),
+                              include.lowest = TRUE)
+
+
+
+theme_set(theme_minimal(base_size = 10) + 
+            theme(axis.text.y = element_text(size = 5),
+                  panel.spacing = unit(2, "lines")))
+
+ggplot(agency_counts, aes(x = reorder(Agency.Name, n), y = n)) +
+  geom_segment(aes(xend = Agency.Name, yend = 0), color = "skyblue") +
+  geom_point(color = "blue", size = 3) +
+  facet_wrap(~ category, nrow = length(unique(agency_counts$category)), scales = "free") + 
+  coord_flip() +
+  labs(title = "Number of Workers in Each Agency by Category",
+       x = "Agency Name",
+       y = "Number of Workers")
+
+
+
+```
+
+```{r }
+library(ggplot2)
+library(dplyr)
+library(readr)
+
+title_borough_summary <- clean_nyc_payroll %>%
+  count(Title.Description, Work.Location.Borough) %>%
+  arrange(desc(n)) %>%
+  group_by(Work.Location.Borough) %>%
+   slice_head(n = 10) %>%  #top 10 job profile by borough
+  ungroup()
+
+ggplot(title_borough_summary, aes(x = Work.Location.Borough, y = Title.Description, size = n)) +
+  geom_point(alpha = 0.7, color = "deepskyblue") +  
+  scale_size(range = c(3, 12)) + 
+  theme_minimal() +
+  labs(title = "Type of most common job titles by Borough",
+       x = "Borough",
+       y = "Job Title",
+       size = "Frequency") +
+  theme(legend.position = "right")
+
+
+
+```
+```{r}
+library(ggplot2)
+library(viridis)
+library(dplyr)
+library(tidyr)
+library(readr)
+
+title_counts <- clean_nyc_payroll %>%
+ count(Title.Description, Work.Location.Borough)
+
+top_titles <- title_counts %>%
+  group_by(Title.Description) %>%
+  summarise(Total = sum(n)) %>%
+  top_n(20, Total) %>%
+  pull(Title.Description)
+
+filtered_title_counts <- title_counts %>%
+  filter(Title.Description %in% top_titles)
+
+wide_data <- filtered_title_counts %>%
+  pivot_wider(names_from = Work.Location.Borough, values_from = n, values_fill = list(n = 0))
+
+
+long_data <- wide_data %>%
+  pivot_longer(cols = - Title.Description, names_to = "Borough", values_to = "Count")
+
+ggplot(long_data, aes(x = Borough, y = Title.Description, fill = Count)) +
+  geom_tile() +
+  scale_fill_viridis(name = "Count", option = "C") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  labs(title = "Heatmap of Top Job Titles by Borough")
+```
+
+```{r}
+
+```
+
+```{r}
+#
+
+# Selecting relevant columns and filtering out extreme salaries for better visualization
+filtered_data = data[['Title.Description', 'Base.Salary']]
+filtered_data = filtered_data[filtered_data['Base.Salary'] < 300000]  # Assuming a reasonable cut-off for salaries
+
+# Selecting top 20 job titles
+top_job_titles = filtered_data ('Title.Description').value_counts().head(20).index
+filtered_data_top_jobs = filtered_data[filtered_data('Title.Description').isin(top_job_titles)]
+
+# Plotting
+plt.figure(figsize=(15, 8))
+sns.boxplot(x='Title.Description', y='Base.Salary', data=filtered_data_top_jobs)
+plt.xticks(rotation=90)
+plt.title('Boxplot of Salary by Job Title (Top 20 Job Titles)')
+plt.xlabel('Job Title')
+plt.ylabel('Base Salary')
+plt.tight_layout()
+
+# Show plot
+plt.show()
+
+```
+
