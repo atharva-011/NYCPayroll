@@ -1,11 +1,141 @@
-```{r}
+```{r message=FALSE, warning=FALSE}
+# Importing Necessary Libraries
+library(redav)
 library(ggplot2)
+library(ggridges)
+library(dplyr)
+library(ggalluvial)
+library(tidyverse)
+library(tidyr)
+library(RColorBrewer)
 library(forcats)
-clean_nyc_payroll <- read.csv("./Data/cleaned_nyc_payroll.csv")
+```
 
+```{r}
+clean_nyc_payroll <- read.csv("./Data/cleaned_nyc_payroll.csv")
+```
+
+```{r}
+payroll_no_outliers <- clean_nyc_payroll %>%
+    filter(between(Daily.Salary, quantile(Daily.Salary, 0.25) - 1.5 * IQR(Daily.Salary), quantile(Daily.Salary, 0.75) + 1.5 * IQR(Daily.Salary)))
+
+# write.csv(payroll_no_outliers, "./Data/d3_data.csv", row.names = FALSE)
+
+medians <- payroll_no_outliers %>%
+    group_by(Work.Location.Borough) %>%
+    summarize(MedianSalary = median(Daily.Salary))
+
+payroll_no_outliers <- left_join(payroll_no_outliers, medians, by = "Work.Location.Borough")
+
+ggplot(data = payroll_no_outliers, alpha = 0.1) +
+    geom_density_ridges(
+        mapping = aes(
+            x = Daily.Salary,
+            y = reorder(Work.Location.Borough, MedianSalary),
+            fill = reorder(Work.Location.Borough, MedianSalary),
+            scale = 0.8
+        ),
+        show.legend = FALSE,
+        alpha = 0.81
+    ) +
+    geom_boxplot(
+        mapping = aes(
+            x = Daily.Salary,
+            y = reorder(Work.Location.Borough, MedianSalary),
+            fill = reorder(Work.Location.Borough, MedianSalary)
+        ),
+        show.legend = FALSE,
+        alpha = 0.81,
+        lwd = 0.36,
+        width = 0.3
+    ) +
+    labs(
+        title = "Distribution of Daily Pay by Borough",
+        subtitle = "Using Both Boxplots & Ridgeline Plots",
+        x = "Daily Salary",
+        y = "Borough"
+    ) +
+    scale_x_continuous(
+        breaks = seq(0, 600, by = 50),
+        limits = c(0, 600)
+    ) +
+    theme_bw() + 
+    scale_fill_brewer(palette = "GnBu")
+
+```
+
+
+```{r}
+table(clean_nyc_payroll$Leave.Status.as.of.June.30)
+```
+
+```{r, fig.height=9, fig.width=9}
+alluvial_data <- clean_nyc_payroll |> filter(Leave.Status.as.of.June.30 %in% c("ACTIVE", "CEASED")) |>
+    count(Work.Location.Borough, Pay.Basis, Leave.Status.as.of.June.30) |>
+    rename(axis1 = Work.Location.Borough, axis2 = Pay.Basis, axis3 = Leave.Status.as.of.June.30, Freq = n)
+
+ordered_levels <- alluvial_data %>%
+    group_by(axis1) %>%
+    summarize(total_count = sum(Freq)) %>%
+    arrange(total_count) %>%
+    pull(axis1)
+
+alluvial_data$axis1 <- factor(alluvial_data$axis1, levels = rev(ordered_levels))
+
+
+ggplot(alluvial_data,
+       aes(axis1 = axis1, axis2 = axis2, axis3 = axis3, y = Freq)) +
+    geom_alluvium(aes(fill = axis1)) +
+    geom_stratum() +
+    geom_text(stat = "stratum", aes(label = paste(after_stat(stratum), "\n", after_stat(count))),
+              size = 1.8, vjust = 0.7) +
+    scale_x_discrete(limits = c("Boroughs", "Pay Basis", "Leave Status")) + 
+    labs(title = "Variation of Leave Staus and Pay Basis by Boroughs",
+         subtitle = "Using Alluvial Plots",
+         x = "Variable Being Assessed",
+         y = "Frequency",
+         fill = "Boroughs"
+    )
+```
+
+
+```{r}
+payroll_breakdown <- clean_nyc_payroll %>%
+    filter(Total.Other.Pay > 0, Total.OT.Paid > 0, OT.Hours > 0) %>%
+    mutate(Hourly.Salary = Daily.Salary / 24,
+           Hourly.OT = Total.OT.Paid / OT.Hours) %>%
+    filter(between(Total.Other.Pay, quantile(Total.Other.Pay, 0.25) - 1.5 * IQR(Total.Other.Pay), quantile(Total.Other.Pay, 0.75) + 1.5 * IQR(Total.Other.Pay)),
+           between(Hourly.Salary, quantile(Hourly.Salary, 0.25) - 1.5 * IQR(Hourly.Salary), quantile(Hourly.Salary, 0.75) + 1.5 * IQR(Hourly.Salary)),
+           between(Hourly.OT, quantile(Hourly.OT, 0.25) - 1.5 * IQR(Hourly.OT), quantile(Hourly.OT, 0.75) + 1.5 * IQR(Hourly.OT))) |>
+    mutate(Hourly.Salary = (Hourly.Salary - min(Hourly.Salary)) / (max(Hourly.Salary) - min(Hourly.Salary)),
+           Hourly.OT = (Hourly.OT - min(Hourly.OT)) / (max(Hourly.OT) - min(Hourly.OT)),
+           Total.Other.Pay = (Total.Other.Pay - min(Total.Other.Pay)) / (max(Total.Other.Pay) - min(Total.Other.Pay)))
+
+
+payroll_long <- payroll_breakdown %>%
+    pivot_longer(cols = c(Hourly.Salary, Hourly.OT, Total.Other.Pay),
+                 names_to = "Pay.Type",
+                 values_to = "Amount")
+
+ggplot(payroll_long, aes(x = Work.Location.Borough, y = Amount, fill = Pay.Type)) +
+    geom_bar(position = "dodge", stat = "identity") +
+    labs(title = "Comparison of Hourly Salary, Hourly OT, and Total Other Pay by Location",
+         x = "Location",
+         y = "Amount") +
+    scale_fill_brewer(palette = "Set2") +
+    theme_bw()
+
+# TO BE SORTEDDDD
+# TO BE SORTEDDDD
+# TO BE SORTEDDDD
+# TO BE SORTEDDDD
+# TO BE SORTEDDDD
+```
+
+
+```{r}
 clean_nyc_payroll$Work.Location.Borough <-factor(clean_nyc_payroll$Work.Location.Borough)
-              
-# Results
+
 ggplot(clean_nyc_payroll, aes(x = fct_infreq(Work.Location.Borough))) +
   geom_bar(fill = "cornflowerblue") +
   theme_minimal() +
@@ -149,3 +279,4 @@ ggplot(nyc_payroll_filtered, aes(x = Base.Salary, y = Total.OT.Paid, color = Sal
   theme_minimal()
 
 ```
+
