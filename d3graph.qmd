@@ -1,33 +1,21 @@
----
-title: "NYC Salary Distribution Visualization"
-output: html_document
----
-
-<style>
-/* Your CSS here */
-.tooltip {
-    position: absolute;
-    text-align: center;
-    padding: 6px;
-    font: 12px sans-serif;
-    background: lightsteelblue;
-    border: 0px;
-    border-radius: 8px;
-    pointer-events: none;
-}
-</style>
-
-<div id="year-selector">
-    <label for="year-slider">Select Year: </label>
-    <input type="range" id="year-slider" min="2014" max="2023" value="2014" step="1" />
-    <span id="year-value">2014</span>
-</div>
-<div id="piechart"></div>
+# Interactive Graph
 
 <script src="https://d3js.org/d3.v6.min.js"></script>
+<style>
+        /* Add your CSS styling here */
+        .tooltip {
+            position: absolute;
+            text-align: center;
+            padding: 6px;
+            font: 12px sans-serif;
+            background: lightsteelblue;
+            border: 0px;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+</style>
+<div id="piechart"></div>
+<script src="./scripts/myscript.js"></script>
 
-```{r echo=FALSE, results='asis'}
-# Read the content of 'myscript.js' and write it as raw HTML
-js_code <- readLines("./scripts/myscript.js")
-cat(paste0("<script>", paste(js_code, collapse="\n"), "</script>"))
-```
+
+

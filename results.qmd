@@ -16,7 +16,6 @@ ggplot(clean_nyc_payroll, aes(x = fct_infreq(Work.Location.Borough))) +
 
 ```
 
-
 ```{r, fig.height=8}
 library(dplyr)
 library(ggplot2)
@@ -49,8 +48,6 @@ ggplot(top_agencies, aes(x = reorder(Agency.Name, n), y = n)) +
   theme_bw()
 
 ```
-
-
 
 ```{r}
 library(ggplot2)
@@ -89,9 +86,6 @@ ggplot(long_data, aes(x = Borough, y = Title.Description, fill = Count)) +
        y = "Job Profile")
 ```
 
-
-
-
 ```{r}
 library(GGally)
 library(dplyr)
@@ -124,3 +118,34 @@ plotly_plot
 
 ```
 
+```{r}
+library(ggplot2)
+
+# Assuming clean_nyc_payroll is your dataset
+# Define a threshold for outliers (e.g., 1.5 standard deviations from the mean)
+salary_sd <- 1.5 * sd(clean_nyc_payroll$Base.Salary, na.rm = TRUE)
+ot_sd <- 1.5 * sd(clean_nyc_payroll$Total.OT.Paid, na.rm = TRUE)
+salary_mean <- mean(clean_nyc_payroll$Base.Salary, na.rm = TRUE)
+ot_mean <- mean(clean_nyc_payroll$Total.OT.Paid, na.rm = TRUE)
+
+min_salary_threshold <- 10000
+min_ot_paid <- 1000
+
+nyc_payroll_filtered <- clean_nyc_payroll[abs(clean_nyc_payroll$Base.Salary - salary_mean) < salary_sd & 
+                                    abs(clean_nyc_payroll$Total.OT.Paid - ot_mean) < ot_sd & 
+                                    clean_nyc_payroll$Base.Salary > min_salary_threshold & 
+                                    clean_nyc_payroll$Total.OT.Paid > min_ot_paid, ]
+
+# Create a new variable for color based on Base Salary being below or above $70,000
+nyc_payroll_filtered$Salary.Color <- ifelse(nyc_payroll_filtered$Base.Salary < 70000, "green", "red")
+
+# Create the scatter plot with filtered data and colored points
+ggplot(nyc_payroll_filtered, aes(x = Base.Salary, y = Total.OT.Paid, color = Salary.Color)) +
+  geom_point() +
+  labs(title = "Scatter Plot of Base Salary vs. Total OT Paid (Without Outliers)",
+       x = "Base Salary",
+       y = "Total OT Paid") +
+  scale_color_identity() + # Use the actual colors specified in Salary.Color
+  theme_minimal()
+
+```
