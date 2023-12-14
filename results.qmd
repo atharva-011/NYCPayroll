@@ -1,1 +1,151 @@
+```{r}
+library(ggplot2)
+library(forcats)
+clean_nyc_payroll <- read.csv("./Data/cleaned_nyc_payroll.csv")
+
+clean_nyc_payroll$Work.Location.Borough <-factor(clean_nyc_payroll$Work.Location.Borough)
+              
 # Results
+ggplot(clean_nyc_payroll, aes(x = fct_infreq(Work.Location.Borough))) +
+  geom_bar(fill = "cornflowerblue") +
+  theme_minimal() +
+  labs(title = "Distribution of Work place location",
+       subtitle = "Bar Plot",
+       x = "Borough",
+       y = "Number of Workers")
+
+```
+
+```{r, fig.height=8}
+library(dplyr)
+library(ggplot2)
+
+# Assuming clean_nyc_payroll is your dataset
+agency_counts <- clean_nyc_payroll %>%
+  count(Agency.Name) %>%
+  arrange(desc(n))
+
+# Select the top 20 agencies
+top_agencies <- head(agency_counts, 25)
+
+# Create a category variable based on the count
+top_agencies$category <- cut(top_agencies$n, 
+                             breaks = c(0, 150,  Inf),
+                             labels = c("0-150", "150-2000"),
+                             include.lowest = TRUE)
+
+# Create the plot
+ggplot(top_agencies, aes(x = reorder(Agency.Name, n), y = n)) +
+  geom_segment(aes(xend = Agency.Name, yend = 0), color = "skyblue") +
+  geom_point(color = "blue", size = 3) +
+  facet_wrap(~category, scales = "free", ncol =1)+
+  coord_flip() +
+  labs(title = "Number of Workers in Top 20 Agencies by Category",
+       subtitle = "Faceted Cleveland Plot",
+        y = "Number of Workers",
+        x = "Agency") +
+       
+  theme_bw()
+
+```
+
+```{r}
+library(ggplot2)
+library(viridis)
+library(dplyr)
+library(tidyr)
+library(readr)
+
+title_counts <- clean_nyc_payroll %>%
+ count(Title.Description, Work.Location.Borough)
+
+top_titles <- title_counts %>%
+  group_by(Title.Description) %>%
+  summarise(Total = sum(n)) %>%
+  top_n(20, Total) %>%
+  pull(Title.Description)
+
+filtered_title_counts <- title_counts %>%
+  filter(Title.Description %in% top_titles)
+
+wide_data <- filtered_title_counts %>%
+  pivot_wider(names_from = Work.Location.Borough, values_from = n, values_fill = list(n = 0))
+
+
+long_data <- wide_data %>%
+  pivot_longer(cols = - Title.Description, names_to = "Borough", values_to = "Count")
+
+ggplot(long_data, aes(x = Borough, y = Title.Description, fill = Count)) +
+  geom_tile() +
+  scale_fill_viridis_c() +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  labs(title = "Top 20 Job Titles by Borough",
+       subtitle = "Heatmap",
+       x = "Borough",
+       y = "Job Profile")
+```
+
+```{r}
+library(GGally)
+library(dplyr)
+library(plotly)
+
+
+# Calculate total years of experience
+clean_nyc_payroll$Total.Years.of.Experience <- clean_nyc_payroll$Fiscal.Year - as.numeric(format(as.Date(clean_nyc_payroll$Agency.Start.Date, "%m/%d/%Y"), "%Y"))
+
+clean_nyc_payroll$Work.Location.Borough <- as.factor(clean_nyc_payroll$Work.Location.Borough)
+
+# Filter data
+filtered_data <- clean_nyc_payroll %>%
+  filter(OT.Hours < 1500, Total.OT.Paid > 0, Daily.Salary < 1000)
+p <- ggparcoord(filtered_data, 
+                columns = c( 19, 18, 15:16 ), 
+                groupColumn = "Work.Location.Borough", 
+                alphaLines = 0.5,
+                showPoints = TRUE) +
+  theme_minimal() +
+  labs(title = "Overtime compensation compared to Daily Salary and Work Experience",
+       subtitle = "Interactive Parallel Plot ",
+       x = "Variables",
+       y = "Scaled Values")
+  
+
+plotly_plot <- ggplotly(p)
+plotly_plot
+
+
+```
+
+```{r}
+library(ggplot2)
+
+# Assuming clean_nyc_payroll is your dataset
+# Define a threshold for outliers (e.g., 1.5 standard deviations from the mean)
+salary_sd <- 1.5 * sd(clean_nyc_payroll$Base.Salary, na.rm = TRUE)
+ot_sd <- 1.5 * sd(clean_nyc_payroll$Total.OT.Paid, na.rm = TRUE)
+salary_mean <- mean(clean_nyc_payroll$Base.Salary, na.rm = TRUE)
+ot_mean <- mean(clean_nyc_payroll$Total.OT.Paid, na.rm = TRUE)
+
+min_salary_threshold <- 10000
+min_ot_paid <- 1000
+
+nyc_payroll_filtered <- clean_nyc_payroll[abs(clean_nyc_payroll$Base.Salary - salary_mean) < salary_sd & 
+                                    abs(clean_nyc_payroll$Total.OT.Paid - ot_mean) < ot_sd & 
+                                    clean_nyc_payroll$Base.Salary > min_salary_threshold & 
+                                    clean_nyc_payroll$Total.OT.Paid > min_ot_paid, ]
+
+# Create a new variable for color based on Base Salary being below or above $70,000
+nyc_payroll_filtered$Salary.Color <- ifelse(nyc_payroll_filtered$Base.Salary < 70000, "green", "red")
+
+# Create the scatter plot with filtered data and colored points
+ggplot(nyc_payroll_filtered, aes(x = Base.Salary, y = Total.OT.Paid, color = Salary.Color)) +
+  geom_point() +
+  labs(title = "Scatter Plot of Base Salary vs. Total OT Paid (Without Outliers)",
+       x = "Base Salary",
+       y = "Total OT Paid") +
+  scale_color_identity() + # Use the actual colors specified in Salary.Color
+  theme_minimal()
+
+```
