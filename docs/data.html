@@ -395,15 +395,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="research-plan" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="research-plan"><span class="header-section-number">2.2</span> Research Plan</h2>
 <ul>
-<li><p>To understand the employee compensation, we can use a histogram to study the distribution of salaries.</p></li>
-<li><p>While understanding the distribution of total pay is important, we also plan to see how these salaries are broken down and how various components of these salaries are distributed, using Scatter Plots.</p></li>
-<li><p>We can also use grouped bar charts, to understand these relationships over time.</p></li>
-<li><p>Using a heatmap, with the budget as the color scale, we will be able to uncover any biases when it comes to salaries based on boroughs and agencies.</p></li>
-<li><p>A Mosaic plot will be ideal to unravel patterns and compare multivariate relationships when it comes to the salaries earned based on the Job Title and the boroughs.</p></li>
-<li><p>A faceted scatterplot, or a faceted barplot would help us present insights on how the relationship between overtime pay and the corresponding payroll has evolved over the years.</p></li>
-<li><p>Since we can show the boroughs of NYC using an actual map, we plan to categorize an individual’s work experience, and then use that to show how their compensation varies in different parts of NYC, w.r.t. their work experience.</p></li>
-<li><p>We also aim to analyze the leave status and workforce dynamics. Leave status typically indicates whether an employee is on leave or not, and if so, what type of leave they are on. This information is often valuable for HR and management to understand workforce availability, plan for staffing needs, and monitor employee well-being.</p></li>
-<li><p>We also plan to make use of D3 to make some other interactive graphs showing some other relationships.</p></li>
+<li><p>To understand the compensation distribution, we plan to use a boxplot along with a ridgeline plot to check understand the distribution of the median and the mode of the data. We would like to make this comparison across boroughs.</p></li>
+<li><p>While understanding the distribution of daily pay is important, we also plan to see how these salaries are broken down and how various components of these salaries are distributed across boroughs. Grouped bar charts are the best method to understand how these components vary.</p></li>
+<li><p>Each borough has a budget based on the city’s policies. We want to analyze the sum of daily salaries for each borough, to see how the budget should be allocated.</p></li>
+<li><p>Using a bar plot, we also want to see which boroughs have the most number of workers, and we want to analyze why this is so.</p></li>
+<li><p>There are various municipal agencies in NYC. Some are more prominent than the others. This could be a result of the need of the city, the priorities or the preference of the people. Using a faceted cleveland bar plot, we would like to see how workers are distributed across some of the most prominent agencies in NYC.</p></li>
+<li><p>Each borough has some jobs which people prefer. Using a heatmap, we would like to see which job titles have the most number of workers for each borough.</p></li>
+<li><p>A very important study that needs to be conducted is about the fairness of overtime pay. We plan to use a parallel coordinate plot to show the relationship between Years of Experience, Daily Salaries, Overtime hours and overtime pay. This plot will help us study relationships across multiple variables and unearth any biases or issues.</p></li>
+<li><p>We would also like to see how the base salary and overtime paid vary with each other, and whether they have any correlation, using a scatterplot.</p></li>
+<li><p>We also aim to analyze the leave status and workforce dynamics. Leave status typically indicates whether an employee is on leave or not, and if so, what type of leave they are on. This information is often valuable for HR and management to understand workforce availability, plan for staffing needs, and monitor employee well-being. Along with this, we also use the basis for paying an employee, and whether that has any connection to their current employment status.</p></li>
+<li><p>We also plan to make use of D3 to make an interactive and animated plot, to show the proportion of the average daily salary across various boroughs, for each year.</p></li>
 </ul>
 </section>
 <section id="missing-value-analysis" class="level2" data-number="2.3">
@@ -434,7 +435,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                          0                          0 </code></pre>
 </div>
 </div>
-<p>We see that only one column, namely <code>Payroll Number</code> has missing values.</p>
+<p>We see that only two columns, namely <code>Payroll.Number</code> and <code>Mid.Init</code> have missing values.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -444,9 +445,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="data_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="2880"></p>
 </div>
 </div>
-<p>As can be seen from the above plot, there are only two patterns which can be observed in our data. The first being the complete lack of NaN values, whereas the second pattern exhibits missing values in one column only, namely, <code>Payroll Number</code>.</p>
-<p>The graph on the right shows that there are nearly 3000 rows exhibiting the second pattern, and about 7000 points exhibiting the first, where they do not have any missing values at all.</p>
-<p>We also get to see which columns have missing values in the form of a bar chart on top, and see that only one column falls under this category.</p>
+<p>As can be seen from the above plot, there are four patterns which can be observed in our data. The first being the complete lack of NaN values, whereas the second pattern exhibits missing values in one column only, namely, <code>Mid.Init</code>. There are also rows where only <code>Payroll.Number</code> have missing values, and where both these columns have missing values at the same time.</p>
+<p>The graph on the right shows that there are nearly 2000 rows exhibiting the second pattern, about 1750 rows exhibiting the third pattern and 1000 rows with missing values in both columns.</p>
+<p>We also get to see which columns have missing values in the form of a bar chart on top, and see that two columns falls under this category.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -463,7 +464,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>This graph shows us the missing values in the entire dataset. The cells represent the actual values after scaling, defined by each row and column of the actual dataset. Higher values take on the lighter colors, whereas colors close to red represent values which are lower.</p>
-<p>The values in black, indicate missing data. Here, we see that <code>Payroll Number</code> has missing data for nearly 3000 hundred contiguous rows.</p>
+<p>The values in black, indicate missing data. There is no clear pattern which defines why or how a row has missing values. The missing values seem to be random and not related to other columns.</p>
 
 
 </section>
