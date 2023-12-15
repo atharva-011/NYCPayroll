@@ -23,53 +23,57 @@ library(sf)
 clean_nyc_payroll <- read.csv("./Data/cleaned_nyc_payroll.csv")
 ```
 
+## Compensation Distribution by Boroughs
+
 ```{r message=FALSE, warning=FALSE}
 payroll_no_outliers <- clean_nyc_payroll %>%
-    filter(between(Daily.Salary, quantile(Daily.Salary, 0.25) - 1.5 * IQR(Daily.Salary), quantile(Daily.Salary, 0.75) + 1.5 * IQR(Daily.Salary)))
+  filter(between(
+    Daily.Salary,
+    quantile(Daily.Salary, 0.25) - 1.5 * IQR(Daily.Salary),
+    quantile(Daily.Salary, 0.75) + 1.5 * IQR(Daily.Salary)
+  ))
 
 # write.csv(payroll_no_outliers, "./Data/d3_data.csv", row.names = FALSE)
 
 medians <- payroll_no_outliers %>%
-    group_by(Work.Location.Borough) %>%
-    summarize(MedianSalary = median(Daily.Salary))
+  group_by(Work.Location.Borough) %>%
+  summarize(MedianSalary = median(Daily.Salary))
 
-payroll_no_outliers <- left_join(payroll_no_outliers, medians, by = "Work.Location.Borough")
+payroll_no_outliers <-
+  left_join(payroll_no_outliers, medians, by = "Work.Location.Borough")
 
 ggplot(data = payroll_no_outliers, alpha = 0.1) +
-    geom_density_ridges(
-        mapping = aes(
-            x = Daily.Salary,
-            y = reorder(Work.Location.Borough, MedianSalary),
-            fill = reorder(Work.Location.Borough, MedianSalary),
-            scale = 0.8
-        ),
-        show.legend = FALSE,
-        alpha = 0.81
-    ) +
-    geom_boxplot(
-        mapping = aes(
-            x = Daily.Salary,
-            y = reorder(Work.Location.Borough, MedianSalary),
-            fill = reorder(Work.Location.Borough, MedianSalary)
-        ),
-        show.legend = FALSE,
-        alpha = 0.81,
-        lwd = 0.36,
-        width = 0.3
-    ) +
-    labs(
-        title = "Distribution of Daily Pay by Borough",
-        subtitle = "Using Both Boxplots & Ridgeline Plots",
-        x = "Daily Salary",
-        y = "Borough"
-    ) +
-    scale_x_continuous(
-        breaks = seq(0, 600, by = 50),
-        limits = c(0, 600)
-    ) +
-    theme_bw() + 
-    scale_fill_brewer(palette = "GnBu")
-
+  geom_density_ridges(
+    mapping = aes(
+      x = Daily.Salary,
+      y = reorder(Work.Location.Borough, MedianSalary),
+      fill = reorder(Work.Location.Borough, MedianSalary),
+      scale = 0.8
+    ),
+    show.legend = FALSE,
+    alpha = 0.81
+  ) +
+  geom_boxplot(
+    mapping = aes(
+      x = Daily.Salary,
+      y = reorder(Work.Location.Borough, MedianSalary),
+      fill = reorder(Work.Location.Borough, MedianSalary)
+    ),
+    show.legend = FALSE,
+    alpha = 0.81,
+    lwd = 0.36,
+    width = 0.3
+  ) +
+  labs(
+    title = "Distribution of Daily Pay by Borough",
+    subtitle = "Using Both Boxplots & Ridgeline Plots",
+    x = "Daily Salary",
+    y = "Borough"
+  ) +
+  scale_x_continuous(breaks = seq(0, 600, by = 50),
+                     limits = c(0, 600)) +
+  theme_bw() +
+  scale_fill_brewer(palette = "GnBu")
 ```
 
 
@@ -91,31 +95,52 @@ We also gain a significant amount of information by studying the modality of the
 
 Across all boroughs, these implications suggest the need for tailored economic and workforce development policies that consider the unique salary distributions and economic landscapes of each borough. 
 
+## Examination of Salary Breakdown
+
 ```{r}
 payroll_breakdown <- clean_nyc_payroll %>%
-    filter(Total.Other.Pay > 0, Total.OT.Paid > 0, OT.Hours > 0) %>%
-    mutate(Hourly.Salary = Daily.Salary / 24,
-           Hourly.OT = Total.OT.Paid / OT.Hours) %>%
-    filter(between(Total.Other.Pay, quantile(Total.Other.Pay, 0.25) - 1.5 * IQR(Total.Other.Pay), quantile(Total.Other.Pay, 0.75) + 1.5 * IQR(Total.Other.Pay)),
-           between(Hourly.Salary, quantile(Hourly.Salary, 0.25) - 1.5 * IQR(Hourly.Salary), quantile(Hourly.Salary, 0.75) + 1.5 * IQR(Hourly.Salary)),
-           between(Hourly.OT, quantile(Hourly.OT, 0.25) - 1.5 * IQR(Hourly.OT), quantile(Hourly.OT, 0.75) + 1.5 * IQR(Hourly.OT))) |>
-    mutate(Hourly.Salary = (Hourly.Salary - min(Hourly.Salary)) / (max(Hourly.Salary) - min(Hourly.Salary)),
-           Hourly.OT = (Hourly.OT - min(Hourly.OT)) / (max(Hourly.OT) - min(Hourly.OT)),
-           Total.Other.Pay = (Total.Other.Pay - min(Total.Other.Pay)) / (max(Total.Other.Pay) - min(Total.Other.Pay)))
+  filter(Total.Other.Pay > 0, Total.OT.Paid > 0, OT.Hours > 0) %>%
+  mutate(Hourly.Salary = Daily.Salary / 24,
+         Hourly.OT = Total.OT.Paid / OT.Hours) %>%
+  filter(
+    between(
+      Total.Other.Pay,
+      quantile(Total.Other.Pay, 0.25) - 1.5 * IQR(Total.Other.Pay),
+      quantile(Total.Other.Pay, 0.75) + 1.5 * IQR(Total.Other.Pay)
+    ),
+    between(
+      Hourly.Salary,
+      quantile(Hourly.Salary, 0.25) - 1.5 * IQR(Hourly.Salary),
+      quantile(Hourly.Salary, 0.75) + 1.5 * IQR(Hourly.Salary)
+    ),
+    between(
+      Hourly.OT,
+      quantile(Hourly.OT, 0.25) - 1.5 * IQR(Hourly.OT),
+      quantile(Hourly.OT, 0.75) + 1.5 * IQR(Hourly.OT)
+    )
+  ) |>
+  mutate(
+    Hourly.Salary = (Hourly.Salary - min(Hourly.Salary)) / (max(Hourly.Salary) - min(Hourly.Salary)),
+    Hourly.OT = (Hourly.OT - min(Hourly.OT)) / (max(Hourly.OT) - min(Hourly.OT)),
+    Total.Other.Pay = (Total.Other.Pay - min(Total.Other.Pay)) / (max(Total.Other.Pay) - min(Total.Other.Pay))
+  )
 
 
 payroll_long <- payroll_breakdown %>%
-    pivot_longer(cols = c(Hourly.Salary, Hourly.OT, Total.Other.Pay),
-                 names_to = "Pay.Type",
-                 values_to = "Amount")
+  pivot_longer(
+    cols = c(Hourly.Salary, Hourly.OT, Total.Other.Pay),
+    names_to = "Pay.Type",
+    values_to = "Amount"
+  )
 
-ggplot(payroll_long, aes(x = Work.Location.Borough, y = Amount, fill = Pay.Type)) +
-    geom_bar(position = "dodge", stat = "identity") +
-    labs(title = "Comparison of Hourly Salary, Hourly OT, and Total Other Pay by Location",
-         x = "Location",
-         y = "Amount") +
-    scale_fill_brewer(palette = "Set2") +
-    theme_bw()
+ggplot(payroll_long,
+       aes(x = Work.Location.Borough, y = Amount, fill = Pay.Type)) +
+  geom_bar(position = "dodge", stat = "identity") +
+  labs(title = "Comparison of Hourly Salary, Hourly OT, and Total Other Pay by Location",
+       x = "Location",
+       y = "Amount") +
+  scale_fill_brewer(palette = "Set2") +
+  theme_bw()
 ```
 
 The hourly salary seems to be quite consistent across boroughs. OT pay is similarly distributed across all the boroughs barring Staten Island. This could also be a result of lesser people working overtime in Staten Island, as the pay for OT is generally decided by policies fixed for the entire city. There is a noticeable difference in the 'Total Other Pay' across boroughs, with Manhattan and Brooklyn having higher amounts compared to the Bronx, Brooklyn, and Staten Island. There is a noticeable difference in the 'Total Other Pay' across boroughs, with Manhattan and Staten Island having higher amounts compared to the Bronx, Brooklyn, and Queens.
@@ -123,6 +148,8 @@ The hourly salary seems to be quite consistent across boroughs. OT pay is simila
 Note that the data is normalized, and the comparison across boroughs reflects relative proportions rather than absolute values. This normalization allows for a fair assessment of the pay structure proportionally, rather than being skewed by a borough with a larger workforce or higher pay scales.
 
 The consistency in hourly salary and OT across boroughs suggests that New York City may have standardized pay rates and overtime policies for hourly workers, promoting equity across different regions. The variation in 'Total Other Pay' may necessitate a closer look by policymakers to ensure that compensations are fair and justified by the differences in living costs or work conditions across boroughs. Understanding the composition of 'Total Other Pay' is crucial for HR and policymakers. If it includes bonuses or cost of living adjustments, it might be essential to evaluate their distribution and ensure they meet the employees' needs in different boroughs.
+
+# Study Regarding Budget Allocation for Each Borough
 
 ```{r message=FALSE, warning=FALSE}
 d3_data <- read.csv("./Data/d3_data.csv")
@@ -148,8 +175,16 @@ boroughs_centroids <- boroughs_sf %>%
 
 # Plot the data focusing on New York City
 ggplot(data = boroughs_sf) +
-  geom_sf(aes(fill = Total.Daily.Salary), color = "white", size = 0.2) +
-  geom_sf_text(data = boroughs_centroids, aes(label = name), check_overlap = TRUE, size = 3, colour = "firebrick") +
+  geom_sf(aes(fill = Total.Daily.Salary),
+          color = "white",
+          size = 0.2) +
+  geom_sf_text(
+    data = boroughs_centroids,
+    aes(label = name),
+    check_overlap = TRUE,
+    size = 3,
+    colour = "firebrick"
+  ) +
   scale_fill_viridis_c(option = "magma", direction = -1) + # Use a color scale that is colorblind-friendly
   theme_minimal() +
   labs(fill = "Total Daily Salary", title = "Sum of Daily Salaries per Borough in NYC") +
@@ -162,23 +197,29 @@ Staten Island spends the least amount on daily salaries, and this should be acco
 
 While making policies, these factors should be considered. We know that NYC is the financial capital of the world, but we see that the highest contribution to this, is from the borough of Manhattan. Manhattan is also the most densely populated borough, which shows the highest number of workers and hence the highest amount of money spent on daily salaries. 
 
+# Influence of Geographic Location on Workers
 
 ```{r}
-clean_nyc_payroll$Work.Location.Borough <-factor(clean_nyc_payroll$Work.Location.Borough)
+clean_nyc_payroll$Work.Location.Borough <-
+  factor(clean_nyc_payroll$Work.Location.Borough)
 
 ggplot(clean_nyc_payroll, aes(x = fct_infreq(Work.Location.Borough))) +
   geom_bar(fill = "cornflowerblue") +
   theme_minimal() +
-  labs(title = "Distribution of Work place location",
-       subtitle = "Bar Plot",
-       x = "Borough",
-       y = "Number of Workers")
+  labs(
+    title = "Distribution of Work place location",
+    subtitle = "Bar Plot",
+    x = "Borough",
+    y = "Number of Workers"
+  )
 
 ```
 
 The bar chart presents a graphical representation of New York City's worker distribution, with a clear skew towards Manhattan. This suggests Manhattan's role as the economic powerhouse of the city. This concentration of workers in Manhattan can be attributed to several factors, such as its status as the epicenter of the global financial industry, housing the headquarters of numerous Fortune 500 companies, and boasting a well-established commercial infrastructure.
 
 However, the substantial drop in the number of workers in the other boroughs raises concerns about economic diversity and employment opportunities outside of Manhattan. This uneven distribution may result in a lack of job accessibility for residents living in the outer boroughs, which could translate into longer commutes, reduced quality of life, and increased traffic congestion. Moreover, it might exacerbate income inequality and limit upward mobility for those unable to secure employment in the city's economic hub. Such trends are already visible in NYC and it is a well known fact that Manhattan has the best quality of life in the city, although very expensive.
+
+## Analysis of Prominent Municipal Agencies in NYC
 
 ```{r, fig.height=8}
 # Assuming clean_nyc_payroll is your dataset
@@ -190,22 +231,26 @@ agency_counts <- clean_nyc_payroll %>%
 top_agencies <- head(agency_counts, 25)
 
 # Create a category variable based on the count
-top_agencies$category <- cut(top_agencies$n, 
-                             breaks = c(0, 150,  Inf),
-                             labels = c("0-150", "150-2000"),
-                             include.lowest = TRUE)
+top_agencies$category <- cut(
+  top_agencies$n,
+  breaks = c(0, 150,  Inf),
+  labels = c("0-150", "150-2000"),
+  include.lowest = TRUE
+)
 
 # Create the plot
 ggplot(top_agencies, aes(x = reorder(Agency.Name, n), y = n)) +
   geom_segment(aes(xend = Agency.Name, yend = 0), color = "skyblue") +
   geom_point(color = "blue", size = 3) +
-  facet_wrap(~category, scales = "free", ncol =1)+
+  facet_wrap( ~ category, scales = "free", ncol = 1) +
   coord_flip() +
-  labs(title = "Number of Workers in Top 20 Agencies by Category",
-       subtitle = "Faceted Cleveland Plot",
-        y = "Number of Workers",
-        x = "Agency") +
-       
+  labs(
+    title = "Number of Workers in Top 20 Agencies by Category",
+    subtitle = "Faceted Cleveland Plot",
+    y = "Number of Workers",
+    x = "Agency"
+  ) +
+  
   theme_bw()
 
 ```
@@ -214,9 +259,11 @@ Using the Cleveland plot we have distinctly categorized the workforce across NYC
 
 These disparities in workforce distribution should be taken into consideration while framing policies surrounding city employment and budget allocation. By addressing these questions, New York City can make informed, data-driven decisions to optimize its workforce deployment, ensuring that it adequately serves all residents and maintains a harmonious balance between essential services. Such considerations are essential for the city's continued growth and the well-being of its communities.
 
+# Important Jobs by Boroughs
+
 ```{r}
 title_counts <- clean_nyc_payroll %>%
- count(Title.Description, Work.Location.Borough)
+  count(Title.Description, Work.Location.Borough)
 
 top_titles <- title_counts %>%
   group_by(Title.Description) %>%
@@ -228,52 +275,71 @@ filtered_title_counts <- title_counts %>%
   filter(Title.Description %in% top_titles)
 
 wide_data <- filtered_title_counts %>%
-  pivot_wider(names_from = Work.Location.Borough, values_from = n, values_fill = list(n = 0))
+  pivot_wider(
+    names_from = Work.Location.Borough,
+    values_from = n,
+    values_fill = list(n = 0)
+  )
 
 
 long_data <- wide_data %>%
-  pivot_longer(cols = - Title.Description, names_to = "Borough", values_to = "Count")
+  pivot_longer(
+    cols = -Title.Description,
+    names_to = "Borough",
+    values_to = "Count"
+  )
 
 ggplot(long_data, aes(x = Borough, y = Title.Description, fill = Count)) +
   geom_tile() +
   scale_fill_viridis_c() +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
-  labs(title = "Top 20 Job Titles by Borough",
-       subtitle = "Heatmap",
-       x = "Borough",
-       y = "Job Profile")
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(
+    title = "Top 20 Job Titles by Borough",
+    subtitle = "Heatmap",
+    x = "Borough",
+    y = "Job Profile"
+  )
 ```
 
 This heatmap provides a visual representation of the distribution of the top 20 job titles among New York City's municipal workers across its five boroughs: Bronx, Brooklyn, Manhattan, Queens, and Staten Island. Some job titles appear to be common across multiple boroughs, indicated by a consistent color across the row. For example, Police Officers and Fire-Fighters are uniformly distributed across several boroughs. This could suggest that safety and essential services related positions are widely needed and filled across NYC. On the other hand, certain job titles have a pronounced presence in specific boroughs, portrayed by a distinct color block, indicating unique needs or administrative focuses of that borough. We see that teachers are highly concentrated in Manhattan, and their presence in other boroughs is significantly lesser. This could be explained by the fact that Manhattan is most densely populated, and will have more students, resulting in a large number of teachers. The need of the borough has brought about job opportunities of a certain type.
 
 Another interesting fact which is noticed is that the Top 20 job titles by borough are quite diverse, and encapsulate different parts of society, with a focus on education. This is reflective of NYC's  policy priorities and its commitment to education at various levels, from special education to general education. Moreover, there is a need not onlyfor general education teachers but also for specialized roles such as "Teacher Special Education" and "Annual Ed Para," which suggests that NYC values a diverse educational workforce capable of meeting a wide range of student needs.
 
+## Gauging Fairness of Overtime Pay
+
 ```{r}
 # Calculate total years of experience
-clean_nyc_payroll$Total.Years.of.Experience <- clean_nyc_payroll$Fiscal.Year - as.numeric(format(as.Date(clean_nyc_payroll$Agency.Start.Date, "%m/%d/%Y"), "%Y"))
+clean_nyc_payroll$Total.Years.of.Experience <-
+  clean_nyc_payroll$Fiscal.Year - as.numeric(format(
+    as.Date(clean_nyc_payroll$Agency.Start.Date, "%m/%d/%Y"),
+    "%Y"
+  ))
 
-clean_nyc_payroll$Work.Location.Borough <- as.factor(clean_nyc_payroll$Work.Location.Borough)
+clean_nyc_payroll$Work.Location.Borough <-
+  as.factor(clean_nyc_payroll$Work.Location.Borough)
 
 # Filter data
 filtered_data <- clean_nyc_payroll %>%
   filter(OT.Hours < 1500, Total.OT.Paid > 0, Daily.Salary < 1000)
-p <- ggparcoord(filtered_data, 
-                columns = c( 19, 18, 15:16 ), 
-                groupColumn = "Work.Location.Borough", 
-                alphaLines = 0.5,
-                showPoints = TRUE) +
+p <- ggparcoord(
+  filtered_data,
+  columns = c(19, 18, 15:16),
+  groupColumn = "Work.Location.Borough",
+  alphaLines = 0.5,
+  showPoints = TRUE
+) +
   theme_minimal() +
-  labs(title = "Overtime compensation compared to Daily Salary and Work Experience",
-       subtitle = "Interactive Parallel Plot ",
-       x = "Variables",
-       y = "Scaled Values")
-  
+  labs(
+    title = "Overtime compensation compared to Daily Salary and Work Experience",
+    subtitle = "Interactive Parallel Plot ",
+    x = "Variables",
+    y = "Scaled Values"
+  )
+
 
 plotly_plot <- ggplotly(p)
 plotly_plot
-
-
 ```
 
 This plot illustrates the relationships between the total years of work experience, daily salary, overtime (OT) hours worked, and the total amount of overtime paid to municipal workers in different boroughs of New York City. It appears that there isn't a strong, consistent relationship between years of experience and daily salary across all boroughs. This is indicated by the crisscrossing lines between these two variables. In some cases, more experience correlates with a higher daily salary, but this isn't uniform across the dataset. The variation in daily salary across similar years of experience may point to differing pay scales based on job title, level of education, or other factors not depicted in the graph. This reflects the complexity of compensation policies within a large municipal workforce.
@@ -286,6 +352,9 @@ The colors representing different boroughs show that there is some variation in 
 
 A worrying factor is that some data points show the highest OT hours, but do not indicate matching OT pay. This could be indicative of potential for overtime abuse. Such issues should be monitored more closely. In terms of overall workforce policy, if NYC's compensation for overtime is consistent across boroughs and tied clearly to hours worked, it suggests a policy that fairly compensates additional work hours. However, if the data shows discrepancies that cannot be explained by job role or seniority, it could indicate areas where policy might need to be reviewed to ensure equity and prevent excessive overtime accumulation.
 
+
+## Analysis of Overtime Pay Against Daily Salaries
+
 ```{r}
 # Assuming clean_nyc_payroll is your dataset
 # Define a threshold for outliers (e.g., 1.5 standard deviations from the mean)
@@ -297,16 +366,19 @@ ot_mean <- mean(clean_nyc_payroll$Total.OT.Paid, na.rm = TRUE)
 min_salary_threshold <- 10000
 min_ot_paid <- 1000
 
-nyc_payroll_filtered <- clean_nyc_payroll[abs(clean_nyc_payroll$Base.Salary - salary_mean) < salary_sd & 
-                                    abs(clean_nyc_payroll$Total.OT.Paid - ot_mean) < ot_sd & 
-                                    clean_nyc_payroll$Base.Salary > min_salary_threshold & 
-                                    clean_nyc_payroll$Total.OT.Paid > min_ot_paid, ]
+nyc_payroll_filtered <-
+  clean_nyc_payroll[abs(clean_nyc_payroll$Base.Salary - salary_mean) < salary_sd &
+                      abs(clean_nyc_payroll$Total.OT.Paid - ot_mean) < ot_sd &
+                      clean_nyc_payroll$Base.Salary > min_salary_threshold &
+                      clean_nyc_payroll$Total.OT.Paid > min_ot_paid, ]
 
 # Create a new variable for color based on Base Salary being below or above $70,000
-nyc_payroll_filtered$Salary.Color <- ifelse(nyc_payroll_filtered$Base.Salary < 85000, "green", "red")
+nyc_payroll_filtered$Salary.Color <-
+  ifelse(nyc_payroll_filtered$Base.Salary < 85000, "green", "red")
 
 # Create the scatter plot with filtered data and colored points
-ggplot(nyc_payroll_filtered, aes(x = Base.Salary, y = Total.OT.Paid, color = Salary.Color)) +
+ggplot(nyc_payroll_filtered,
+       aes(x = Base.Salary, y = Total.OT.Paid, color = Salary.Color)) +
   geom_point() +
   labs(title = "Scatter Plot of Base Salary vs. Total OT Paid (Without Outliers)",
        x = "Base Salary",
@@ -327,6 +399,8 @@ There is also a concentration of dots (both green and red) around certain base s
 
 In conclusion, the scatter plot suggests that in NYC, both lower and higher base salary employees have the potential to earn varying amounts of overtime pay. This implies a diverse range of job roles and responsibilities that may necessitate irregular working hours, reflecting the complexity and demands of working within the city's municipal structure.
 
+# Analysis of the Workforce's Preference for Leave Status and Pay Basis
+
 ```{r}
 table(clean_nyc_payroll$Leave.Status.as.of.June.30)
 ```
@@ -334,32 +408,49 @@ table(clean_nyc_payroll$Leave.Status.as.of.June.30)
 We see that most of the leave statuses apart from "ACTIVE" and "CEASED" are negligible and will not contribute to the overall information gained. Hence, we consider only these 2 values and proceed to the next graph for analysis.
 
 ```{r, fig.height=9, fig.width=9}
-alluvial_data <- clean_nyc_payroll |> filter(Leave.Status.as.of.June.30 %in% c("ACTIVE", "CEASED")) |>
-    count(Work.Location.Borough, Pay.Basis, Leave.Status.as.of.June.30) |>
-    rename(axis1 = Work.Location.Borough, axis2 = Pay.Basis, axis3 = Leave.Status.as.of.June.30, Freq = n)
+alluvial_data <-
+  clean_nyc_payroll |> filter(Leave.Status.as.of.June.30 %in% c("ACTIVE", "CEASED")) |>
+  count(Work.Location.Borough, Pay.Basis, Leave.Status.as.of.June.30) |>
+  rename(
+    axis1 = Work.Location.Borough,
+    axis2 = Pay.Basis,
+    axis3 = Leave.Status.as.of.June.30,
+    Freq = n
+  )
 
 ordered_levels <- alluvial_data %>%
-    group_by(axis1) %>%
-    summarize(total_count = sum(Freq)) %>%
-    arrange(total_count) %>%
-    pull(axis1)
+  group_by(axis1) %>%
+  summarize(total_count = sum(Freq)) %>%
+  arrange(total_count) %>%
+  pull(axis1)
 
-alluvial_data$axis1 <- factor(alluvial_data$axis1, levels = rev(ordered_levels))
+alluvial_data$axis1 <-
+  factor(alluvial_data$axis1, levels = rev(ordered_levels))
 
 
 ggplot(alluvial_data,
-       aes(axis1 = axis1, axis2 = axis2, axis3 = axis3, y = Freq)) +
-    geom_alluvium(aes(fill = axis1)) +
-    geom_stratum() +
-    geom_text(stat = "stratum", aes(label = paste(after_stat(stratum), "\n", after_stat(count))),
-              size = 1.8, vjust = 0.7) +
-    scale_x_discrete(limits = c("Boroughs", "Pay Basis", "Leave Status")) + 
-    labs(title = "Variation of Leave Status and Pay Basis by Boroughs",
-         subtitle = "Using Alluvial Plots",
-         x = "Variable Being Assessed",
-         y = "Frequency",
-         fill = "Boroughs"
-    )
+       aes(
+         axis1 = axis1,
+         axis2 = axis2,
+         axis3 = axis3,
+         y = Freq
+       )) +
+  geom_alluvium(aes(fill = axis1)) +
+  geom_stratum() +
+  geom_text(stat = "stratum",
+            aes(label = paste(
+              after_stat(stratum), "\n", after_stat(count)
+            )),
+            size = 1.8,
+            vjust = 0.7) +
+  scale_x_discrete(limits = c("Boroughs", "Pay Basis", "Leave Status")) +
+  labs(
+    title = "Variation of Leave Status and Pay Basis by Boroughs",
+    subtitle = "Using Alluvial Plots",
+    x = "Variable Being Assessed",
+    y = "Frequency",
+    fill = "Boroughs"
+  )
 ```
 
 From the plot we see that Manhattan has the highest frequency, followed by Queens, Brooklyn, Bronx, and Staten Island, indicating that Manhattan has the highest number of employees under consideration for the dataset. The majority of employees across all boroughs are on an annual pay basis, followed by those paid per day, and then per hour. This suggests that full-time, salaried positions are more common than part-time or hourly positions in these boroughs. A significant number of employees, regardless of pay basis, are active, which is reflected by the thick lines flowing into the 'ACTIVE' category. However, there is also a notable portion that has 'CEASED' employment, as indicated by the lines flowing into this category. A higher number of ceased statuses may suggest issues with employee retention, job satisfaction, or other systemic problems that HR might need to address.
