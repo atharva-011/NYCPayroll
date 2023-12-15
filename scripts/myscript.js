@@ -133,7 +133,7 @@ d3.csv(
 
     const label = document.createElement("label");
     label.htmlFor = "year-slider";
-    label.textContent = "Select Year: ";
+    label.textContent = "Select Year:  ";
 
 
     // Append the slider and its label to the "piechart" div

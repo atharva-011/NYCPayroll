@@ -39,7 +39,6 @@ print(dim(nyc_payroll_data))
 # Display Columns of the dataset
 # Display Columns of the dataset
 kable(data.frame(Column_Names = names(nyc_payroll_data)), "markdown")
-
 ```
 
 Presented above are the columns of the dataset.
@@ -108,7 +107,7 @@ clean_nyc_payroll <- read.csv("./Data/cleaned_nyc_payroll.csv")
 
 ## Research Plan
 
-* To understand the compensation distribution, we plan to use a boxplot along with a ridgeline plot to check understand the distribution of the median and the mode of the data. We would like to make this comparison across boroughs.
+* To understand the compensation distribution, we plan to use a boxplot along with a ridgeline plot to study the distribution of the median and the mode of the data. We would like to make this comparison across boroughs.
 
 * While understanding the distribution of daily pay is important, we also plan to see how these salaries are broken down and how various components of these salaries are distributed across boroughs. Grouped bar charts are the best method to understand how these components vary.
 
@@ -124,7 +123,7 @@ clean_nyc_payroll <- read.csv("./Data/cleaned_nyc_payroll.csv")
 
 * We would also like to see how the base salary and overtime paid vary with each other, and whether they have any correlation, using a scatterplot.
 
-* We also aim to analyze the leave status and workforce dynamics. Leave status typically indicates whether an employee is on leave or not, and if so, what type of leave they are on. This information is often valuable for HR and management to understand workforce availability, plan for staffing needs, and monitor employee well-being. Along with this, we also use the basis for paying an employee, and whether that has any connection to their current employment status.
+* We also aim to analyze the leave status and workforce dynamics. Leave status typically indicates whether an employee is on leave or not, and if so, what type of leave they are on. This information is often valuable for City Council and management to understand workforce availability, plan for staffing needs, and monitor employee well-being. Along with this, we also use the basis for paying an employee, and whether that has any connection to their current employment status.
 
 * We also plan to make use of D3 to make an interactive and animated plot, to show the proportion of the average daily salary across various boroughs, for each year.
 
@@ -141,7 +140,7 @@ We see that only two columns, namely `Payroll.Number` and `Mid.Init` have missin
 plot_missing(clean_nyc_payroll, percent = FALSE)
 ```
 
-As can be seen from the above plot, there are four patterns which can be observed in our data. The first being the complete lack of NaN values, whereas the second pattern exhibits missing values in one column only, namely, `Mid.Init`. There are also rows where only `Payroll.Number` have missing values, and where both these columns have missing values at the same time.
+As can be seen from the above plot, there are four patterns which can be observed in our data. The first being the complete lack of NA values, whereas the second pattern exhibits missing values in one column only, namely, `Mid.Init`. There are also rows where only `Payroll.Number` have missing values, and where both these columns have missing values at the same time.
 
 The graph on the right shows that there are nearly 2000 rows exhibiting the second pattern, about 1750 rows exhibiting the third pattern and 1000 rows with missing values in both columns. 
 

@@ -396,7 +396,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="research-plan" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="research-plan"><span class="header-section-number">2.2</span> Research Plan</h2>
 <ul>
-<li><p>To understand the compensation distribution, we plan to use a boxplot along with a ridgeline plot to check understand the distribution of the median and the mode of the data. We would like to make this comparison across boroughs.</p></li>
+<li><p>To understand the compensation distribution, we plan to use a boxplot along with a ridgeline plot to study the distribution of the median and the mode of the data. We would like to make this comparison across boroughs.</p></li>
 <li><p>While understanding the distribution of daily pay is important, we also plan to see how these salaries are broken down and how various components of these salaries are distributed across boroughs. Grouped bar charts are the best method to understand how these components vary.</p></li>
 <li><p>Each borough has a budget based on the city’s policies. We want to analyze the sum of daily salaries for each borough, to see how the budget should be allocated.</p></li>
 <li><p>Using a bar plot, we also want to see which boroughs have the most number of workers, and we want to analyze why this is so.</p></li>
@@ -404,7 +404,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Each borough has some jobs which people prefer. Using a heatmap, we would like to see which job titles have the most number of workers for each borough.</p></li>
 <li><p>A very important study that needs to be conducted is about the fairness of overtime pay. We plan to use a parallel coordinate plot to show the relationship between Years of Experience, Daily Salaries, Overtime hours and overtime pay. This plot will help us study relationships across multiple variables and unearth any biases or issues.</p></li>
 <li><p>We would also like to see how the base salary and overtime paid vary with each other, and whether they have any correlation, using a scatterplot.</p></li>
-<li><p>We also aim to analyze the leave status and workforce dynamics. Leave status typically indicates whether an employee is on leave or not, and if so, what type of leave they are on. This information is often valuable for HR and management to understand workforce availability, plan for staffing needs, and monitor employee well-being. Along with this, we also use the basis for paying an employee, and whether that has any connection to their current employment status.</p></li>
+<li><p>We also aim to analyze the leave status and workforce dynamics. Leave status typically indicates whether an employee is on leave or not, and if so, what type of leave they are on. This information is often valuable for City Council and management to understand workforce availability, plan for staffing needs, and monitor employee well-being. Along with this, we also use the basis for paying an employee, and whether that has any connection to their current employment status.</p></li>
 <li><p>We also plan to make use of D3 to make an interactive and animated plot, to show the proportion of the average daily salary across various boroughs, for each year.</p></li>
 </ul>
 </section>
@@ -446,7 +446,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="data_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="2880"></p>
 </div>
 </div>
-<p>As can be seen from the above plot, there are four patterns which can be observed in our data. The first being the complete lack of NaN values, whereas the second pattern exhibits missing values in one column only, namely, <code>Mid.Init</code>. There are also rows where only <code>Payroll.Number</code> have missing values, and where both these columns have missing values at the same time.</p>
+<p>As can be seen from the above plot, there are four patterns which can be observed in our data. The first being the complete lack of NA values, whereas the second pattern exhibits missing values in one column only, namely, <code>Mid.Init</code>. There are also rows where only <code>Payroll.Number</code> have missing values, and where both these columns have missing values at the same time.</p>
 <p>The graph on the right shows that there are nearly 2000 rows exhibiting the second pattern, about 1750 rows exhibiting the third pattern and 1000 rows with missing values in both columns.</p>
 <p>We also get to see which columns have missing values in the form of a bar chart on top, and see that two columns falls under this category.</p>
 <div class="cell">

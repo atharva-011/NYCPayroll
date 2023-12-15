@@ -8,11 +8,11 @@ How does the distribution of employee compensation vary across the different bor
 
 - **Examination of Salary Breakdown:**
 
-How are the various components of the total pay such as salary overtime and other pay varies across boroughs?
+How are the various components of the total pay such as salary overtime and other pay distributed across boroughs?
 
 - **Study Regarding Budget Allocation for Each Borough:**
 
-Is there any way to analyse geographically, which budget should have highest budget allocation based on salaries?
+Is there any way to analyse geographically, which borough should have highest budget allocation based on salaries?
 
 - **Influence of Geographic Location on Workers:**
 
@@ -24,7 +24,7 @@ Are there noticeable patterns in payroll that correlate with specific municipal 
 
 - **Important Jobs by Boroughs:**
 
-Which are the top 20 jobs? Which job titles are most prevalent in each borough
+Which are the top 20 jobs? Which job titles are most prevalent in each borough?
  
 - **Gauging Fairness of Overtime Pay:**
 
