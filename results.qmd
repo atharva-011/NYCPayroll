@@ -149,7 +149,7 @@ Note that the data is normalized, and the comparison across boroughs reflects re
 
 The consistency in hourly salary and OT across boroughs suggests that New York City may have standardized pay rates and overtime policies for hourly workers, promoting equity across different regions. The variation in 'Total Other Pay' may necessitate a closer look by policymakers to ensure that compensations are fair and justified by the differences in living costs or work conditions across boroughs. Understanding the composition of 'Total Other Pay' is crucial for HR and policymakers. If it includes bonuses or cost of living adjustments, it might be essential to evaluate their distribution and ensure they meet the employees' needs in different boroughs.
 
-# Study Regarding Budget Allocation for Each Borough
+## Study Regarding Budget Allocation for Each Borough
 
 ```{r message=FALSE, warning=FALSE}
 d3_data <- read.csv("./Data/d3_data.csv")
@@ -197,7 +197,7 @@ Staten Island spends the least amount on daily salaries, and this should be acco
 
 While making policies, these factors should be considered. We know that NYC is the financial capital of the world, but we see that the highest contribution to this, is from the borough of Manhattan. Manhattan is also the most densely populated borough, which shows the highest number of workers and hence the highest amount of money spent on daily salaries. 
 
-# Influence of Geographic Location on Workers
+## Influence of Geographic Location on Workers
 
 ```{r}
 clean_nyc_payroll$Work.Location.Borough <-
@@ -259,7 +259,7 @@ Using the Cleveland plot we have distinctly categorized the workforce across NYC
 
 These disparities in workforce distribution should be taken into consideration while framing policies surrounding city employment and budget allocation. By addressing these questions, New York City can make informed, data-driven decisions to optimize its workforce deployment, ensuring that it adequately serves all residents and maintains a harmonious balance between essential services. Such considerations are essential for the city's continued growth and the well-being of its communities.
 
-# Important Jobs by Boroughs
+## Important Jobs by Boroughs
 
 ```{r}
 title_counts <- clean_nyc_payroll %>%
@@ -399,7 +399,7 @@ There is also a concentration of dots (both green and red) around certain base s
 
 In conclusion, the scatter plot suggests that in NYC, both lower and higher base salary employees have the potential to earn varying amounts of overtime pay. This implies a diverse range of job roles and responsibilities that may necessitate irregular working hours, reflecting the complexity and demands of working within the city's municipal structure.
 
-# Analysis of the Workforce's Preference for Leave Status and Pay Basis
+## Analysis of the Workforce's Preference for Leave Status and Pay Basis
 
 ```{r}
 table(clean_nyc_payroll$Leave.Status.as.of.June.30)
