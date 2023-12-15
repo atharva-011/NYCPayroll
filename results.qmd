@@ -3,7 +3,6 @@
 Here we analyze the data and present our inferences.
 
 ```{r message=FALSE, warning=FALSE}
-# Importing Necessary Libraries
 library(redav)
 library(ggplot2)
 library(ggridges)
