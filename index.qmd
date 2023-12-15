@@ -2,35 +2,44 @@
 
 The topic that we are working on is `New York City Payroll Data Analysis`. Payroll data provides insights into workforce dynamics, and demographic patterns of municipal employees of New York City. We aim to identify trends and patterns in the payroll of New York municipal employees spanning the last 10 years (2014 - 2023). There are few topics that we think are important to study in order to understand the trends. 
 
-- **Employee Compensation Distribution:**
+- **Compensation Distribution by Boroughs:**
 
-Examine the distribution of the total compensation of all the employees, and try to see gain insights on how salaries are distributed.
+How does the distribution of employee compensation vary across the different boroughs of New York City? What is the median daily salary, salary distribution(mode, range) per borough?
 
-- **Examining the Breakdown of the Salaries**
+- **Examination of Salary Breakdown:**
 
-How are the various components of the total pay distributed over time?
+How are the various components of the total pay such as salary overtime and other pay varies across boroughs?
 
-- **Influence of Geographic Location and Agency on Budget Allocation:**
+- **Study Regarding Budget Allocation for Each Borough:**
 
-How does the geographic work location (borough) in  New York City, along with the agency, influence the budget allocation?
+Is there any way to analyse geographically, which budget should have highest budget allocation based on salaries?
 
-- **Work Experience, Payroll, and Borough Connections:**
+- **Influence of Geographic Location on Workers:**
 
-Is there any connections between an individual's amount of work experience, payroll, and the specific borough where they are employed?
+What is the worker distribution like for each borough? Can we draw any economical inference from the study?
 
-- **Job Profile & Team Impact on Payroll:**
+- **Analysis of Prominent Municipal Agencies in NYC:**
 
-Does the job profile (Title Description) have an impact on the payroll? / Are certain type of jobs are agency specific? How do the salaries vary?
+Are there noticeable patterns in payroll that correlate with specific municipal agencies?
 
-- **Overtime Work and Payroll Relationship Over Time:**
+- **Important Jobs by Boroughs:**
 
-How has the relationship between overtime work and the payroll evolved over time?
+Which are the top 20 jobs? Which job titles are most prevalent in each borough
+ 
+- **Gauging Fairness of Overtime Pay:**
 
-- **Leave Status and Workforce Dynamics:**
+How equitable is the distribution of overtime pay among municipal workers, and how has this relationship evolved over time?
+ 
+- **Analysis of Overtime Pay Against Daily Salaries:**
 
-Examining the leave status of employees.
+What trends emerge when comparing daily salaries to overtime compensation among NYC's municipal employees?
 
-Additionally, we can study financial resources allocation and how much resources are devoted to overtime. Examining the impact of job profiles on payroll and identifying any borough-specific jobs will offer a deeper understanding of the payroll dynamics. Furthermore, the analysis into the relationship between overtime work and payroll aims to uncover insights into work culture and potential areas for improvement in work-life balance and the payroll itself(underpaid / overpaid).
+- **Analysis of the Workforce’s Preference for Leave Status and Pay Basis**
+
+ What can leave status and pay basis tell us about workforce dynamics within the city's various departments?
+ 
+
+Examining the impact of job profiles on payroll and identifying any borough-specific jobs will offer a deeper understanding of the payroll dynamics. Furthermore, the analysis into the relationship between overtime work and payroll aims to uncover insights into work culture and potential areas for improvement in work-life balance and the payroll itself(underpaid / overpaid).
 
 By addressing above mentioned questions, through exploratory data analysis and visualization we can gain insights to form more inclusive and fair policies aimed  at bridging income gaps, a better and inclusive job market, and guiding initiatives related to education, up-skilling, and training to even out the disparity, if any.
 
