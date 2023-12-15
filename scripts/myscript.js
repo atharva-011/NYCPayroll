@@ -105,7 +105,7 @@ d3.csv(
             .html(
               `Borough: ${
                 d.data.borough
-              }<br>Total Salary: ${d.data.totalSalary.toFixed(2)}`
+              }<br>Average Daily Salary: ${d.data.totalSalary.toFixed(2)}`
             )
             .style("left", event.pageX + "px")
             .style("top", event.pageY - 28 + "px");
