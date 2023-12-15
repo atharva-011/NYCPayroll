@@ -108,23 +108,25 @@ clean_nyc_payroll <- read.csv("./Data/cleaned_nyc_payroll.csv")
 
 ## Research Plan
 
-* To understand the employee compensation, we can use a histogram to study the distribution of salaries.
+* To understand the compensation distribution, we plan to use a boxplot along with a ridgeline plot to check understand the distribution of the median and the mode of the data. We would like to make this comparison across boroughs.
 
-* While understanding the distribution of total pay is important, we also plan to see how these salaries are broken down and how various components of these salaries are distributed, using Scatter Plots. 
+* While understanding the distribution of daily pay is important, we also plan to see how these salaries are broken down and how various components of these salaries are distributed across boroughs. Grouped bar charts are the best method to understand how these components vary.
 
-* We can also use grouped bar charts, to understand these relationships over time.
+* Each borough has a budget based on the city's policies. We want to analyze the sum of daily salaries for each borough, to see how the budget should be allocated. 
 
-* Using a heatmap, with the budget as the color scale, we will be able to uncover any biases when it comes to salaries based on boroughs and agencies.
+* Using a bar plot, we also want to see which boroughs have the most number of workers, and we want to analyze why this is so.
 
-* A Mosaic plot will be ideal to unravel patterns and compare multivariate relationships when it comes to the salaries earned based on the Job Title and the boroughs.
+* There are various municipal agencies in NYC. Some are more prominent than the others. This could be a result of the need of the city, the priorities or the preference of the people. Using a faceted cleveland bar plot, we would like to see how workers are distributed across some of the most prominent agencies in NYC.
 
-* A faceted scatterplot, or a faceted barplot would help us present insights on how the relationship between overtime pay and the corresponding payroll has evolved over the years.
+* Each borough has some jobs which people prefer. Using a heatmap, we would like to see which job titles have the most number of workers for each borough.
 
-* Since we can show the boroughs of NYC using an actual map, we plan to categorize an individual's work experience, and then use that to show how their compensation varies in different parts of NYC, w.r.t. their work experience.
+* A very important study that needs to be conducted is about the fairness of overtime pay. We plan to use a parallel coordinate plot to show the relationship between Years of Experience, Daily Salaries, Overtime hours and overtime pay. This plot will help us study relationships across multiple variables and unearth any biases or issues.
 
-* We also aim to analyze the leave status and workforce dynamics. Leave status typically indicates whether an employee is on leave or not, and if so, what type of leave they are on. This information is often valuable for HR and management to understand workforce availability, plan for staffing needs, and monitor employee well-being.
+* We would also like to see how the base salary and overtime paid vary with each other, and whether they have any correlation, using a scatterplot.
 
-* We also plan to make use of D3 to make some other interactive graphs showing some other relationships.
+* We also aim to analyze the leave status and workforce dynamics. Leave status typically indicates whether an employee is on leave or not, and if so, what type of leave they are on. This information is often valuable for HR and management to understand workforce availability, plan for staffing needs, and monitor employee well-being. Along with this, we also use the basis for paying an employee, and whether that has any connection to their current employment status.
+
+* We also plan to make use of D3 to make an interactive and animated plot, to show the proportion of the average daily salary across various boroughs, for each year.
 
 
 ## Missing Value Analysis
@@ -133,17 +135,17 @@ clean_nyc_payroll <- read.csv("./Data/cleaned_nyc_payroll.csv")
 colSums(is.na(clean_nyc_payroll)) |> sort(decreasing = TRUE)
 ```
 
-We see that only one column, namely `Payroll Number` has missing values.
+We see that only two columns, namely `Payroll.Number` and `Mid.Init` have missing values.
 
 ```{r, fig.height=18, fig.width=30}
 plot_missing(clean_nyc_payroll, percent = FALSE)
 ```
 
-As can be seen from the above plot, there are only two patterns which can be observed in our data. The first being the complete lack of NaN values, whereas the second pattern exhibits missing values in one column only, namely, `Payroll Number`.
+As can be seen from the above plot, there are four patterns which can be observed in our data. The first being the complete lack of NaN values, whereas the second pattern exhibits missing values in one column only, namely, `Mid.Init`. There are also rows where only `Payroll.Number` have missing values, and where both these columns have missing values at the same time.
 
-The graph on the right shows that there are nearly 3000 rows exhibiting the second pattern, and about 7000 points exhibiting the first, where they do not have any missing values at all.
+The graph on the right shows that there are nearly 2000 rows exhibiting the second pattern, about 1750 rows exhibiting the third pattern and 1000 rows with missing values in both columns. 
 
-We also get to see which columns have missing values in the form of a bar chart on top, and see that only one column falls under this category.
+We also get to see which columns have missing values in the form of a bar chart on top, and see that two columns falls under this category.
 
 ```{r, message=FALSE, warning=FALSE, fig.height=11}
 missing_data.frame(clean_nyc_payroll) |> image()
@@ -151,4 +153,4 @@ missing_data.frame(clean_nyc_payroll) |> image()
 
 This graph shows us the missing values in the entire dataset. The cells represent the actual values after scaling, defined by each row and column of the actual dataset. Higher values take on the lighter colors, whereas colors close to red represent values which are lower.
 
-The values in black, indicate missing data. Here, we see that `Payroll Number` has missing data for nearly 3000 hundred contiguous rows.
+The values in black, indicate missing data. There is no clear pattern which defines why or how a row has missing values. The missing values seem to be random and not related to other columns. 
